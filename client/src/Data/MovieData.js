@@ -1,0 +1,26 @@
+export const MoviesData = [
+  {
+    name: "Army Of  The Dead",
+    desc: "Lorem ipsum dolor sit amet, consecetur adipiscing elseddo eiusmod There are many variations of passages of lorem Ipsum available, but the majority have suffered alteration.",
+    titleImage: "1a.jpg",
+    image: "1.jpg",
+    category: "Western",
+    language: "English",
+    year: 2022,
+    time: 3,
+    video: "",
+    rate: 3,
+  },
+  {
+    name: "The Conjuring",
+    desc: "Lorem ipsum dolor sit amet, consecetur adipiscing elseddo eiusmod There are many variations of passages of lorem Ipsum available, but the majority have suffered alteration.",
+    titleImage: "2.jpg",
+    image: "2.jpg",
+    category: "Thriller",
+    language: "Chinese",
+    year: 1999,
+    time: 4,
+    video: "",
+    rate: 5,
+  },
+];
