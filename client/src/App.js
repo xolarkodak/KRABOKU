@@ -14,6 +14,9 @@ import Register from './Screens/Register';
 import Profile from './Screens/Dashboard/Profile';
 import Password from './Screens/Dashboard/Password';
 import FavoritesMovies from './Screens/Dashboard/FavoritesMovies';
+import MoviesList from './Screens/Dashboard/Admin/MovieList';
+import Dashboard from './Screens/Dashboard/Admin/Dashboard';
+import Categories from './Screens/Dashboard/Admin/Categories';
 
 function App() {
   Aos.init();
@@ -31,6 +34,9 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/password" element={<Password />} />
         <Route path="/favorites" element={<FavoritesMovies />} />
+        <Route path="/movieslist" element={<MoviesList />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/categories" element={<Categories />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
