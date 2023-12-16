@@ -1,58 +1,58 @@
 export const CategoriesData = [
   {
     _id: '1',
-    title: 'Romantic',
+    title: 'Романтика',
   },
   {
     _id: '2',
-    title: 'Action',
+    title: 'Екшн',
   },
   {
     _id: '3',
-    title: 'Horror',
+    title: 'Жахи',
   },
   {
     _id: '4',
-    title: 'Comedy',
+    title: 'Комедія',
   },
   {
     _id: '5',
-    title: 'Adventure',
+    title: 'Пригоди',
   },
   {
     _id: '6',
-    title: 'Sports',
+    title: 'Спорт',
   },
   {
     _id: '7',
-    title: 'Fantasy',
+    title: 'Фентезі',
   },
   {
     _id: '8',
-    title: 'Musicals',
+    title: 'Мюзикли',
   },
   {
     _id: '9',
-    title: 'Drama',
+    title: 'Драма',
   },
   {
     _id: '10',
-    title: 'Thriller',
+    title: 'Трилер',
   },
   {
     _id: '11',
-    title: 'Western',
+    title: 'Вестерн',
   },
   {
     _id: '12',
-    title: 'Historical',
+    title: 'Історичний',
   },
   {
     _id: '13',
-    title: 'Science',
+    title: 'Наукова фантастика',
   },
   {
     _id: '14',
-    title: 'Mystery',
+    title: 'Містика',
   },
 ];
