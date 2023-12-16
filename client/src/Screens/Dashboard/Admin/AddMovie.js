@@ -63,7 +63,7 @@ function AddMovie() {
             <Uploder />
             <div className="w-32 h-32 p-2 bg-main border border-border rounded">
               <img
-                src="/images/movies/99.jpg"
+                src="/images/user.jpg"
                 alt=""
                 className="w-full h-full object-cover rounded"
               />
@@ -77,7 +77,7 @@ function AddMovie() {
             <Uploder />
             <div className="w-32 h-32 p-2 bg-main border border-border rounded">
               <img
-                src="/images/movies/88.jpg"
+                src="/images/user.jpg"
                 alt=""
                 className="w-full h-full object-cover rounded"
               />
