@@ -163,6 +163,57 @@ const addLikedMovie = asyncHandler(async (req, res) => {
   }
 });
 
+const deleteLikedMovies = asyncHandler(async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (user) {
+      user.likedMovies = [];
+      await user.save();
+      res.json({ message: "Улюблені фільми успішно видалено" });
+    }
+    else {
+      res.status(404);
+      throw new Error("Користувача не знайдено");
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+const getUsers = asyncHandler(async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.json(users);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+const deleteUser = asyncHandler(async (req, res) => {
+  try {
+    // find user in DB
+    const user = await User.findById(req.params.id);
+    // if user exists delete user from DB
+    if (user) {
+      // if user is admin throw error message
+      if (user.isAdmin) {
+        res.status(400);
+        throw new Error("Can't delete admin user");
+      }
+      // else delete user from DB
+      await user.remove();
+      res.json({ message: "User deleted successfully" });
+    }
+    // else send error message
+    else {
+      res.status(404);
+      throw new Error("User not found");
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 export {
   registerUser,
   loginUser,
@@ -171,4 +222,7 @@ export {
   changeUserPassword,
   getLikedMovies,
   addLikedMovie,
+  deleteLikedMovies,
+  getUsers,
+  deleteUser,
 };
