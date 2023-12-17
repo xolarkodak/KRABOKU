@@ -1,21 +1,21 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const UserSchema = mongoose.Schema(
   {
     fullName: {
       type: String,
-      required: [true, "Please add a full name"],
+      required: [true, "Будь ласка, додайте повне ім'я"],
     },
     email: {
       type: String,
-      required: [true, "Please add an email"],
+      required: [true, 'Будь ласка, додайте електронну пошту'],
       unique: true,
       trim: true,
     },
     password: {
       type: String,
-      required: [true, "Please add a password"],
-      minlength: [6, "Password must be at least 6 characters"],
+      required: [true, 'Будь ласка, додайте пароль'],
+      minlength: [6, 'Пароль повинен містити щонайменше 6 символів'],
     },
     image: {
       type: String,
@@ -27,13 +27,13 @@ const UserSchema = mongoose.Schema(
     likedMovies: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Movies",
+        ref: 'Movies',
       },
     ],
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-export default mongoose.model("User", UserSchema);
+export default mongoose.model('User', UserSchema);
