@@ -5,6 +5,8 @@ import { connectDB } from './config/db.js';
 import userRouter from './Routes/UserRouter.js';
 import { errorHandler } from './middlewares/errorMiddleware.js';
 import moviesRouter from "./Routes/MoviesRouter.js";
+import categoriesRouter from "./Routes/CategoriesRouter.js";
+import Uploadrouter from "./Controllers/UploadFile.js";
 
 dotenv.config();
 
@@ -20,14 +22,11 @@ app.get('/', (req, res) => {
 
 app.use('/api/users', userRouter);
 app.use("/api/movies", moviesRouter);
+app.use("/api/categories", categoriesRouter);
+app.use("/api/upload", Uploadrouter);
 
 app.use(errorHandler);
 
-//
-//
-//
-
-//
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
