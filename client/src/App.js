@@ -18,16 +18,19 @@ import MoviesList from './Screens/Dashboard/Admin/MovieList';
 import Dashboard from './Screens/Dashboard/Admin/Dashboard';
 import Categories from './Screens/Dashboard/Admin/Categories';
 import Users from './Screens/Dashboard/Admin/Users';
-import AddMovie from "./Screens/Dashboard/Admin/AddMovie";
+import AddMovie from './Screens/Dashboard/Admin/AddMovie';
 import ScrollOnTop from './ScrollOnTop';
 import DrawerContext from './Context/DrawerContext';
+import ToastContainer from './Components/Notfications/ToastContainer';
 
 function App() {
   Aos.init();
   return (
-    <DrawerContext>
-      <ScrollOnTop>
-         <Routes>
+    <>
+      <ToastContainer />
+      <DrawerContext>
+        <ScrollOnTop>
+          <Routes>
             <Route path="/" element={<HomeScreen />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/contact-us" element={<ContactUs />} />
@@ -48,6 +51,7 @@ function App() {
           </Routes>
         </ScrollOnTop>
       </DrawerContext>
+    </>
   );
 }
 
