@@ -1,11 +1,11 @@
-import React from "react";
-import { FaCloudDownloadAlt, FaEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
-import { Link } from "react-router-dom";
-import { GoEye } from "react-icons/go";
+import React from 'react';
+import { FaCloudDownloadAlt, FaEdit } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
+import { Link } from 'react-router-dom';
+import { GoEye } from 'react-icons/go';
 
-const Head = "text-xs text-left text-main font-semibold px-6 py-2 uppercase";
-const Text = "text-sm text-left leading-6 whitespace-nowrap px-5 py-3";
+const Head = 'text-xs text-left text-main font-semibold px-6 py-2 uppercase';
+const Text = 'text-sm text-left leading-6 whitespace-nowrap px-5 py-3';
 
 // rows
 const Rows = (movie, i, admin) => {
@@ -15,7 +15,7 @@ const Rows = (movie, i, admin) => {
         <div className="w-12 p-1 bg-dry border border-border h-12 rounded overflow-hidden">
           <img
             className="h-full w-full object-cover"
-            src={`/images/movies/${movie.titleImage}`}
+            src={movie?.image ? movie?.image : '/images/user.jpg'}
             alt={movie?.name}
           />
         </div>
@@ -24,7 +24,7 @@ const Rows = (movie, i, admin) => {
       <td className={`${Text}`}>{movie.category}</td>
       <td className={`${Text}`}>{movie.language}</td>
       <td className={`${Text}`}>{movie.year}</td>
-      <td className={`${Text}`}>{movie.time}</td>
+      <td className={`${Text}`}>{movie.time}годин</td>
       <td className={`${Text} float-right flex-rows gap-2`}>
         {admin ? (
           <>
@@ -41,9 +41,8 @@ const Rows = (movie, i, admin) => {
               Завантажити <FaCloudDownloadAlt className="text-green-500" />
             </button>
             <Link
-              to={`/movie/${movie?.name}`}
-              className="bg-subMain text-white rounded flex-colo w-6 h-6"
-            >
+              to={`/movie/${movie?._id}`}
+              className="bg-subMain text-white rounded flex-colo w-6 h-6">
               <GoEye />
             </Link>
           </>
@@ -67,19 +66,19 @@ function Table({ data, admin }) {
               Назва
             </th>
             <th scope="col" className={`${Head}`}>
-             Категорія
+              Категорія
             </th>
             <th scope="col" className={`${Head}`}>
-             Мова
+              Мова
             </th>
             <th scope="col" className={`${Head}`}>
-             Рік
+              Рік
             </th>
             <th scope="col" className={`${Head}`}>
-             Години
+              Години
             </th>
             <th scope="col" className={`${Head} text-end`}>
-             Дії
+              Дії
             </th>
           </tr>
         </thead>
