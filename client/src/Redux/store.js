@@ -4,6 +4,7 @@ import * as User from './Reducers/userReducers';
 const rootReducer = combineReducers({
   userLogin: User.userLoginReducer,
   userRegister: User.userRegisterReducer,
+  userUpdateProfile: User.userUpdateProfileReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

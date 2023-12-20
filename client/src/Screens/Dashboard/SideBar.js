@@ -1,55 +1,95 @@
 import React from "react";
 import { BsFillGridFill } from "react-icons/bs";
 import { FaListAlt, FaUsers, FaHeart } from "react-icons/fa";
-import { RiMovie2Fill, RiLockPasswordLine } from "react-icons/ri";
+import {
+  RiMovie2Fill,
+  RiLockPasswordLine,
+  RiLogoutCircleLine,
+} from "react-icons/ri";
 import { HiViewGridAdd } from "react-icons/hi";
 import { FiSettings } from "react-icons/fi";
 import Layout from "../../Layout/Layout";
 import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logoutAction } from "../../Redux/Actions/userActions";
+import toast from "react-hot-toast";
 
 function SideBar({ children }) {
-  const SideLinks = [
-    {
-      name: "Інформаційна панель",
-      link: "/dashboard",
-      icon: BsFillGridFill,
-    },
-    {
-      name: "Список фільмів",
-      link: "/movieslist",
-      icon: FaListAlt,
-    },
-    {
-      name: "Додати фільм",
-      link: "/addmovie",
-      icon: RiMovie2Fill,
-    },
-    {
-      name: "Категорії",
-      link: "/categories",
-      icon: HiViewGridAdd,
-    },
-    {
-      name: "Користувачі",
-      link: "/users",
-      icon: FaUsers,
-    },
-    {
-      name: "Оновити профіль",
-      link: "/profile",
-      icon: FiSettings,
-    },
-    {
-      name: "Улюблені фільми",
-      link: "/favorites",
-      icon: FaHeart,
-    },
-    {
-      name: "Змінити пароль",
-      link: "/password",
-      icon: RiLockPasswordLine,
-    },
-  ];
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { userInfo } = useSelector((state) => state.userLogin);
+
+
+  const logoutHandler = () => {
+    dispatch(logoutAction());
+    toast.success("Успішно вийшли з системи");
+    navigate("/login");
+  };
+
+  const SideLinks = userInfo?.isAdmin
+    ? [
+        {
+          name: "Панель приладів",
+          link: "/dashboard",
+          icon: BsFillGridFill,
+        },
+        {
+          name: "Список фільмів",
+          link: "/movieslist",
+          icon: FaListAlt,
+        },
+        {
+          name: "Додати фільм",
+          link: "/addmovie",
+          icon: RiMovie2Fill,
+        },
+        {
+          name: "Категорії",
+          link: "/categories",
+          icon: HiViewGridAdd,
+        },
+        {
+          name: "Користувачі",
+          link: "/users",
+          icon: FaUsers,
+        },
+        {
+          name: "Оновити профіль",
+          link: "/profile",
+          icon: FiSettings,
+        },
+        {
+          name: "Улюблені фільми",
+          link: "/favorites",
+          icon: FaHeart,
+        },
+        {
+          name: "Змінити пароль",
+          link: "/password",
+          icon: RiLockPasswordLine,
+        },
+      ]
+    : userInfo
+    ? [
+        {
+          name: "Оновити профіль",
+          link: "/profile",
+          icon: FiSettings,
+        },
+        {
+          name: "Улюблені фільми",
+          link: "/favorites",
+          icon: FaHeart,
+        },
+        {
+          name: "Змінити пароль",
+          link: "/password",
+          icon: RiLockPasswordLine,
+        },
+      ]
+    : [];
+
   const active = "bg-dryGray text-subMain";
   const hover = "hover:text-white hover:bg-main";
   const inActive =
@@ -62,14 +102,17 @@ function SideBar({ children }) {
       <div className="min-h-screen container mx-auto px-2">
         <div className="xl:grid grid-cols-8 gap-10 items-start md:py-12 py-6">
           <div className="col-span-2 sticky bg-dry border border-gray-800 p-6 rounded-md xl:mb-0 mb-5">
-            {
-              // SideBar Links
-              SideLinks.map((link, index) => (
-                <NavLink to={link.link} key={index} className={Hover}>
-                  <link.icon /> <p>{link.name}</p>
-                </NavLink>
-              ))
-            }
+            {SideLinks.map((link, index) => (
+              <NavLink to={link.link} key={index} className={Hover}>
+                <link.icon /> <p>{link.name}</p>
+              </NavLink>
+            ))}
+            <button
+              onClick={logoutHandler}
+              className={`${inActive} ${hover} w-full `}
+            >
+              <RiLogoutCircleLine /> Вийти з системи
+            </button>
           </div>
           <div
             data-aos="fade-up"

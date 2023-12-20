@@ -21,4 +21,34 @@ const loginService = async (user) => {
   return data;
 };
 
-export { registerService, logoutService, loginService };
+const updateProfileService = async (user, token) => {
+  const { data } = await Axios.put("/users", user, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (data) {
+    localStorage.setItem("userInfo", JSON.stringify(data));
+  }
+  return data;
+};
+
+const deleteProfileService = async (token) => {
+  const { data } = await Axios.delete("/users", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (data) {
+    localStorage.removeItem("userInfo");
+  }
+  return data;
+};
+
+export {
+  registerService,
+  logoutService,
+  loginService,
+  updateProfileService,
+  deleteProfileService,
+};
