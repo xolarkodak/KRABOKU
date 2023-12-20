@@ -14,6 +14,7 @@ import {
 } from "../../Redux/Actions/userActions";
 import SideBar from "./SideBar";
 
+
 function Profile() {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userLogin);
@@ -24,7 +25,7 @@ function Profile() {
   const { isLoading: deleteLoading, isError: deleteError } = useSelector(
     (state) => state.userDeleteProfile
   );
-  // validate user
+
   const {
     register,
     handleSubmit,
@@ -34,18 +35,18 @@ function Profile() {
     resolver: yupResolver(ProfileValidation),
   });
 
-  // update profile
+
   const onSubmit = (data) => {
     dispatch(updateProfileAction({ ...data, image: imageUrl }));
   };
 
-  // delete profile
+
   const deleteProfile = () => {
     window.confirm("Ви впевнені, що хочете видалити свій профіль?") &&
       dispatch(deleteProfileAction());
   };
 
-  // useEffect
+ 
   useEffect(() => {
     if (userInfo) {
       setValue("fullname", userInfo?.fullName);
@@ -64,7 +65,7 @@ function Profile() {
   return (
     <SideBar>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
-        <h2 className="text-xl font-bold">Profile</h2>
+        <h2 className="text-xl font-bold">Профіль</h2>
         <div className="w-full grid lg:grid-cols-12 gap-6">
           <div className="col-span-10">
             <Uploder setImageUrl={setImageUrl} />

@@ -38,4 +38,26 @@ const ProfileValidation = yup.object().shape({
     .trim(),
 });
 
-export { LoginValidation, RegisterValidation, ProfileValidation };
+const PasswordValidation = yup.object().shape({
+  oldPassword: yup
+    .string()
+    .required("Пароль є обов'язковим")
+    .min(6, "Пароль повинен містити принаймні 6 символів")
+    .max(20, "Пароль повинен бути менше 20 символів")
+    .matches(/(?=.*[0-9])/, 'Пароль повинен містити цифру'),
+  newPassword: yup
+    .string()
+    .required("Пароль є обов'язковим")
+    .min(6, "Пароль повинен містити принаймні 6 символів")
+    .max(20, "Пароль повинен бути менше 20 символів")
+    .matches(/(?=.*[0-9])/, 'Пароль повинен містити цифру'),
+  confirmPassword: yup
+    .string()
+    .required("Пароль є обов'язковим")
+    .min(6, "Пароль повинен містити принаймні 6 символів")
+    .max(20, "Пароль повинен бути менше 20 символів")
+    .matches(/(?=.*[0-9])/, 'Пароль повинен містити цифру')
+    .oneOf([yup.ref("newPassword"), null], "Паролі мають збігатися"),
+});
+
+export { LoginValidation, RegisterValidation, ProfileValidation, PasswordValidation };

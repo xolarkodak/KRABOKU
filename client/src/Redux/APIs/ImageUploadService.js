@@ -6,11 +6,11 @@ const uploadImageservice = async (file, setLoading) => {
     setLoading(true);
     const { data } = await Axios.post("/upload", file);
     setLoading(false);
-    toast.success("File Uploaded Successfully");
+    toast.success("Файл успішно завантажено");
     return data;
   } catch (error) {
     setLoading(false);
-    toast.error("Something went wrong");
+    toast.error("Щось пішло не так.");
   }
 };
 

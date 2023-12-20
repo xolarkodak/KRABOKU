@@ -1,4 +1,5 @@
-import * as userConstants from '../Constants/userConstants';
+import * as userConstants from "../Constants/userConstants";
+
 
 export const userLoginReducer = (state = {}, action) => {
   switch (action.type) {
@@ -17,6 +18,7 @@ export const userLoginReducer = (state = {}, action) => {
   }
 };
 
+
 export const userRegisterReducer = (state = {}, action) => {
   switch (action.type) {
     case userConstants.USER_REGISTER_REQUEST:
@@ -32,6 +34,7 @@ export const userRegisterReducer = (state = {}, action) => {
   }
 };
 
+
 export const userUpdateProfileReducer = (state = {}, action) => {
   switch (action.type) {
     case userConstants.USER_UPDATE_PROFILE_REQUEST:
@@ -41,6 +44,42 @@ export const userUpdateProfileReducer = (state = {}, action) => {
     case userConstants.USER_UPDATE_PROFILE_FAIL:
       return { isLoading: false, isError: action.payload };
     case userConstants.USER_UPDATE_PROFILE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+
+export const userDeleteProfileReducer = (state = {}, action) => {
+  switch (action.type) {
+    case userConstants.USER_DELETE_PROFILE_REQUEST:
+      return { isLoading: true };
+    case userConstants.USER_DELETE_PROFILE_SUCCESS:
+      return { isLoading: false, isSuccess: true };
+    case userConstants.USER_DELETE_PROFILE_FAIL:
+      return { isLoading: false, isError: action.payload };
+    case userConstants.USER_DELETE_PROFILE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+
+export const userChangePasswordReducer = (state = {}, action) => {
+  switch (action.type) {
+    case userConstants.USER_CHANGE_PASSWORD_REQUEST:
+      return { isLoading: true };
+    case userConstants.USER_CHANGE_PASSWORD_SUCCESS:
+      return {
+        isLoading: false,
+        isSuccess: true,
+        message: action.payload.message,
+      };
+    case userConstants.USER_CHANGE_PASSWORD_FAIL:
+      return { isLoading: false, isError: action.payload };
+    case userConstants.USER_CHANGE_PASSWORD_RESET:
       return {};
     default:
       return state;

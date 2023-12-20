@@ -1,22 +1,23 @@
-import Axios from './Axios';
+import Axios from "./Axios";
+
 
 const registerService = async (user) => {
-  const { data } = await Axios.post('/users', user);
+  const { data } = await Axios.post("/users", user);
   if (data) {
-    localStorage.setItem('userInfo', JSON.stringify(data));
+    localStorage.setItem("userInfo", JSON.stringify(data));
   }
   return data;
 };
 
 const logoutService = () => {
-  localStorage.removeItem('userInfo');
+  localStorage.removeItem("userInfo");
   return null;
 };
 
 const loginService = async (user) => {
-  const { data } = await Axios.post('/users/login', user);
+  const { data } = await Axios.post("/users/login", user);
   if (data) {
-    localStorage.setItem('userInfo', JSON.stringify(data));
+    localStorage.setItem("userInfo", JSON.stringify(data));
   }
   return data;
 };
@@ -33,6 +34,7 @@ const updateProfileService = async (user, token) => {
   return data;
 };
 
+
 const deleteProfileService = async (token) => {
   const { data } = await Axios.delete("/users", {
     headers: {
@@ -45,10 +47,21 @@ const deleteProfileService = async (token) => {
   return data;
 };
 
+const changePasswordService = async (passwords, token) => {
+  const { data } = await Axios.put("/users/password", passwords, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return data;
+};
+
+
 export {
   registerService,
   logoutService,
   loginService,
   updateProfileService,
   deleteProfileService,
+  changePasswordService,
 };
