@@ -30,4 +30,43 @@ const logoutAction = () => (dispatch) => {
   dispatch({ type: userConstants.USER_REGISTER_RESET });
 };
 
-export { loginAction, registerAction, logoutAction };
+
+const updateProfileAction = (user) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: userConstants.USER_UPDATE_PROFILE_REQUEST });
+    const response = await userApi.updateProfileService(
+      user,
+      tokenProtection(getState)
+    );
+    dispatch({
+      type: userConstants.USER_UPDATE_PROFILE_SUCCESS,
+      payload: response,
+    });
+    toast.success("Профіль оновлено");
+    dispatch({
+      type: userConstants.USER_LOGIN_SUCCESS,
+      payload: response,
+    });
+  } catch (error) {
+    ErrorsAction(error, dispatch, userConstants.USER_UPDATE_PROFILE_FAIL);
+  }
+};
+
+const deleteProfileAction = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: userConstants.USER_DELETE_PROFILE_REQUEST });
+    await userApi.deleteProfileService(tokenProtection(getState));
+    dispatch({ type: userConstants.USER_DELETE_PROFILE_SUCCESS });
+    toast.success("Профіль видалений");
+    dispatch(logoutAction());
+  } catch (error) {
+    ErrorsAction(error, dispatch, userConstants.USER_DELETE_PROFILE_FAIL);
+  }
+};
+export {
+  loginAction,
+  registerAction,
+  logoutAction,
+  updateProfileAction,
+  deleteProfileAction,
+};
