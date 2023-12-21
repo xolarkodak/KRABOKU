@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import * as User from './Reducers/userReducers';
 import * as categories from "./Reducers/CategoriesReducer";
+import * as movies from "./Reducers/Moviesreducer";
 
 const rootReducer = combineReducers({
   userLogin: User.userLoginReducer,
@@ -17,6 +18,8 @@ const rootReducer = combineReducers({
   categoryCreate: categories.createCategoryReducer,
   categoryUpdate: categories.updateCategoryReducer,
   categoryDelete: categories.deleteCategoryReducer,
+
+  getAllMovies: movies.moviesListReducer,
 });
 
 

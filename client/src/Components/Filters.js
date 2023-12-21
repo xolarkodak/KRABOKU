@@ -1,44 +1,41 @@
 import { Listbox, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
-import { CategoriesData } from '../Data/CategoriesData'
 import { FaAngleDown, FaCheck } from "react-icons/fa";
+import {
+  LanguageData,
+  RatesData,
+  TimesData,
+  YearData,
+} from "../Data/FilterData";
 
-
-const YearData = [
-    {title: "За роками"},
-    {title:"1700 - 1800"},
-    {title: "1800 - 1900"},
-    {title: "1900 - 2000"},
-    {title:"2000 - 2010"},
-    {title:"2010 - 2030"},]
-
-const TimesData = [
-    {title:"За тривалістю"},
-    {title:"1 - 5 Hours"},
-    {title:"5 - 10 Hours"},
-    {title:"10 - 15 Hours"},
-    {title:"15 - 20 Hours"},]
-
-const RatesData = [
-    {title:"За рейтингом"},
-    {title:"1 Star"},
-    {title:"2 Star"},
-    {title:"3 Star"},
-    {title:"4 Star"},
-    {title:"5 Star"},]
-
-
-function Filters() {
-  const [category, setCategory] = React.useState({title:"Категорія"});
-  const [year, setYear] = React.useState(YearData[0]);
-  const [times, setTimes] = React.useState(TimesData[0]);
-  const [rates, setRates] = React.useState(RatesData[0]);
+function Filters(props) {
+  const {
+    categories,
+    category,
+    setCategory,
+    language,
+    setLanguage,
+    year,
+    setYear,
+    times,
+    setTimes,
+    rates,
+    setRates,
+  } = props?.data;
 
   const Filter = [
     {
       value: category,
       onChange: setCategory,
-      items: CategoriesData
+      items:
+        categories?.length > 0
+          ? [{ title: "Всі категорії" }, ...categories]
+          : [{ title: "Категорію не знайдено" }],
+    },
+    {
+      value: language,
+      onChange: setLanguage,
+      items: LanguageData,
     },
     {
       value: year,

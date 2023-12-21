@@ -31,30 +31,30 @@ export const LanguageData = [
 ];
 
 export const RatesData = [
-  { title: 'Sort By Rates' },
-  { title: '1 Star' },
-  { title: '2 Star' },
-  { title: '3 Star' },
-  { title: '4 Star' },
-  { title: '5 Star' },
+  { title: 'Сортувати за рейтингом' },
+  { title: '1 Зірка' },
+  { title: '2 Зірки' },
+  { title: '3 Зірки' },
+  { title: '4 Зірки' },
+  { title: '5 Зірки' },
 ];
 
 export const TimesData = [
-  { title: 'Sort By Hours' },
-  { title: '1 Hours' },
-  { title: '2 Hours' },
-  { title: '3 Hours' },
-  { title: '4 Hours' },
-  { title: '5 Hours' },
-  { title: '6 Hours' },
-  { title: '7 Hours' },
-  { title: '8 Hours' },
-  { title: '9 Hours' },
-  { title: '10 Hours' },
+  { title: 'Сортувати за годинами' },
+  { title: '1 година' },
+  { title: '2 години' },
+  { title: '3 години' },
+  { title: '4 години' },
+  { title: '5 години' },
+  { title: '6 години' },
+  { title: '7 години' },
+  { title: '8 години' },
+  { title: '9 години' },
+  { title: '10 години' },
 ];
 
 export const YearData = [
-  { title: 'Sort By Year' },
+  { title: 'Сортувати за роками' },
   { title: '2023' },
   { title: '2022' },
   { title: '2021' },
