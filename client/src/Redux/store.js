@@ -13,6 +13,7 @@ const rootReducer = combineReducers({
   userDeleteFavoriteMovies: User.userDeleteFavoriteMoviesReducer,
   adminGetAllUsers: User.adminGetAllUsersReducer,
   adminDeleteUser: User.adminDeleteUserReducer,
+  userLikeMovie: User.userLikeMovieReducer,
 
   categoryGetAll: categories.getAllCategoriesReducer,
   categoryCreate: categories.createCategoryReducer,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   getRandomMovies: movies.moviesRandomReducer,
   getMovieById: movies.movieDetailsReducer,
   getTopRatedMovie: movies.movieTopRatedReducer,
+  createReview: movies.createReviewReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

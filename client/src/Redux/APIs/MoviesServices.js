@@ -29,3 +29,12 @@ export const getTopRatedMovieService = async () => {
   const { data } = await Axios.get(`/movies/rated/top`);
   return data;
 };
+
+export const reviewMovieService = async (token, id, review) => {
+  const { data } = await Axios.post(`/movies/${id}/reviews`, review, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return data;
+};

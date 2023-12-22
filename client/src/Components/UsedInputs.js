@@ -6,7 +6,8 @@ export const Message = ({ label, placeholder, name, register }) => {
         className="w-full h-40 mt-2 p-6 bg-main border border-border rounded"
         placeholder={placeholder}
         {...register}
-        name={name}></textarea>
+        name={name}
+      ></textarea>
     </div>
   );
 };
@@ -18,7 +19,8 @@ export const Select = ({ label, options, register, name }) => {
       <select
         className="w-full mt-2 px-6 py-4 text-text bg-main border border-border rounded"
         {...register}
-        name={name}>
+        name={name}
+      >
         {options.map((o, i) => (
           <option key={i} value={o.value}>
             {o.title}
@@ -29,7 +31,16 @@ export const Select = ({ label, options, register, name }) => {
   );
 };
 
-export const Input = ({ label, placeholder, type, bg, register, name, value, onChange }) => {
+export const Input = ({
+  label,
+  placeholder,
+  type,
+  bg,
+  register,
+  name,
+  value,
+  onChange,
+}) => {
   return (
     <div className="text-sm w-full">
       <label className="text-border font-semibold">{label}</label>
@@ -41,7 +52,7 @@ export const Input = ({ label, placeholder, type, bg, register, name, value, onC
         type={type}
         placeholder={placeholder}
         className={`w-full text-sm mt-2 p-5 border border-border rounded text-white ${
-          bg ? 'bg-main' : 'bg-dry'
+          bg ? "bg-main" : "bg-dry"
         }`}
       />
     </div>
