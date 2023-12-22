@@ -90,6 +90,15 @@ const deleteUserService = async (id, token) => {
   return data;
 };
 
+const likeMovieService = async (movieId, token) => {
+  const { data } = await Axios.post(`/users/favorites`, movieId, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return data;
+};
+
 export {
   registerService,
   logoutService,
@@ -101,4 +110,5 @@ export {
   deleteFavoriteMovies,
   getAllUsersService,
   deleteUserService,
+  likeMovieService,
 };

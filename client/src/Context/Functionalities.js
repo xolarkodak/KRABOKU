@@ -32,7 +32,7 @@ const DownloadVideo = async (videoUrl, setProgress) => {
       let percent = Math.floor((loaded * 100) / total);
       setProgress(percent);
       if (percent > 0 && percent < 100) {
-        toast.loading(`Downloading... ${percent}%`, {
+        toast.loading(`Завантаження... ${percent}%`, {
           id: "download",
           duration: 100000000,
           position: "bottom-right",
