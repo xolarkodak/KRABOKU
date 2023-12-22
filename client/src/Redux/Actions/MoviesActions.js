@@ -73,25 +73,50 @@ export const getTopRatedMovieAction = () => async (dispatch) => {
   }
 };
 
-
 export const reviewMovieAction =
   ({ id, review }) =>
   async (dispatch, getState) => {
     try {
       dispatch({ type: moviesConstants.CREATE_REVIEW_REQUEST });
-      const response = await moviesAPIs.reviewMovieService(
-        tokenProtection(getState),
-        id,
-        review
-      );
+      const response = await moviesAPIs.reviewMovieService(tokenProtection(getState), id, review);
       dispatch({
         type: moviesConstants.CREATE_REVIEW_SUCCESS,
         payload: response,
       });
-      toast.success("Відгук успішно доданий");
+      toast.success('Відгук успішно доданий');
       dispatch({ type: moviesConstants.CREATE_REVIEW_RESET });
       dispatch(getMovieByIdAction(id));
     } catch (error) {
       ErrorsAction(error, dispatch, moviesConstants.CREATE_REVIEW_FAIL);
     }
   };
+
+export const deleteMovieAction = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: moviesConstants.DELETE_MOVIE_REQUEST });
+    const response = await moviesAPIs.deleteMovieService(tokenProtection(getState), id);
+    dispatch({
+      type: moviesConstants.DELETE_MOVIE_SUCCESS,
+      payload: response,
+    });
+    toast.success('Фільм успішно видалено');
+    dispatch(getAllMoviesAction({}));
+  } catch (error) {
+    ErrorsAction(error, dispatch, moviesConstants.DELETE_MOVIE_FAIL);
+  }
+};
+
+export const deleteAllMoviesAction = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: moviesConstants.DELETE_ALL_MOVIES_REQUEST });
+    const response = await moviesAPIs.deleteAllMoviesService(tokenProtection(getState));
+    dispatch({
+      type: moviesConstants.DELETE_ALL_MOVIES_SUCCESS,
+      payload: response,
+    });
+    toast.success('Усі фільми успішно видалено');
+    dispatch(getAllMoviesAction({}));
+  } catch (error) {
+    ErrorsAction(error, dispatch, moviesConstants.DELETE_ALL_MOVIES_FAIL);
+  }
+};

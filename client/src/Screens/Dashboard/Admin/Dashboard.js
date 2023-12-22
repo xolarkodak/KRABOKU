@@ -1,34 +1,66 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaRegListAlt, FaUser } from 'react-icons/fa';
 import SideBar from '../SideBar';
 import { HiViewGridAdd } from 'react-icons/hi';
 import Table from '../../../Components/Table';
-import { Movies } from '../../../Data/MovieData';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllUsersAction } from '../../../Redux/Actions/userActions';
+import toast from 'react-hot-toast';
+import { Empty } from '../../../Components/Notfications/Empty';
+import Loader from '../../../Components/Notfications/Loader';
+import { deleteMovieAction } from '../../../Redux/Actions/MoviesActions';
 
 function Dashboard() {
+  const dispatch = useDispatch();
+  const {
+    isLoading: catLoading,
+    isError: catError,
+    categories,
+  } = useSelector((state) => state.categoryGetAll);
+  const {
+    isLoading: userLoading,
+    isError: userError,
+    users,
+  } = useSelector((state) => state.adminGetAllUsers);
+  const { isLoading, isError, movies, totalMovies } = useSelector((state) => state.getAllMovies);
+  const { isLoading: deleteLoading, isError: deleteError } = useSelector(
+    (state) => state.deleteMovie,
+  );
+
+  const deleteMovieHandler = (id) => {
+    window.confirm('Ви дійсно хочете видалити цей фільм?') && dispatch(deleteMovieAction(id));
+  };
+
+  useEffect(() => {
+    dispatch(getAllUsersAction());
+    if (isError || catError || userError || deleteError) {
+      toast.error('Щось пішло не так!');
+    }
+  }, [dispatch, isError, catError, userError, deleteError]);
+
   const DashboardData = [
     {
       bg: 'bg-orange-600',
       icon: FaRegListAlt,
       title: 'Всього фільмів',
-      total: 90,
+      total: isLoading ? 'Завантаження...' : totalMovies || 0,
     },
     {
       bg: 'bg-blue-700',
       icon: HiViewGridAdd,
       title: 'Всього категорій',
-      total: 8,
+      total: catLoading ? 'Завантаження...' : categories?.length || 0,
     },
     {
       bg: 'bg-green-600',
       icon: FaUser,
       title: 'Всього користувачів',
-      total: 4,
+      total: userLoading ? 'Завантаження...' : users?.length || 0,
     },
   ];
   return (
     <SideBar>
-      <h2 className="text-xl font-bold">Інформаційна панель</h2>
+      <h2 className="text-xl font-bold">Приладова панель</h2>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
         {DashboardData.map((data, index) => (
           <div key={index} className="p-4 rounded bg-main border-border grid grid-cols-4 gap-2">
@@ -43,7 +75,13 @@ function Dashboard() {
         ))}
       </div>
       <h3 className="text-md font-medium my-6 text-border">Останні фільми</h3>
-      <Table data={Movies.slice(0, 5)} admin={true} />
+      {isLoading || deleteLoading ? (
+        <Loader />
+      ) : movies.length > 0 ? (
+        <Table data={movies?.slice(0, 5)} admin={true} onDeleteHandler={deleteMovieHandler} />
+      ) : (
+        <Empty message="Пусто" />
+      )}
     </SideBar>
   );
 }

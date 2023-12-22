@@ -1,27 +1,27 @@
-import React, { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
-import { FiUploadCloud } from "react-icons/fi";
-import { uploadImageservice } from "../Redux/APIs/ImageUploadService";
-import Loader from "./Notfications/Loader";
+import React, { useCallback, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
+import { FiUploadCloud } from 'react-icons/fi';
+import { uploadImageservice } from '../Redux/APIs/ImageUploadService';
+import Loader from './Notfications/Loader';
 
 function Uploder({ setImageUrl }) {
   const [loading, setLoading] = useState(false);
-  
+
+  // upload file
   const onDrop = useCallback(
     async (acceptedFiles) => {
       const file = new FormData();
-      file.append("file", acceptedFiles[0]);
+      file.append('file', acceptedFiles[0]);
       const data = await uploadImageservice(file, setLoading);
       setImageUrl(data);
     },
-    [setImageUrl]
+    [setImageUrl],
   );
 
-  const { getRootProps, getInputProps, isDragActive, isDragReject } =
-    useDropzone({
-      onDrop,
-      multiple: false,
-    });
+  const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone({
+    onDrop,
+    multiple: false,
+  });
   return (
     <div className="w-full text-center flex-colo gap-6">
       {loading ? (
@@ -31,8 +31,7 @@ function Uploder({ setImageUrl }) {
       ) : (
         <div
           {...getRootProps()}
-          className="px-6 w-full py-8 border-2 border-border border-dashed bg-main rounded-md cursor-pointer"
-        >
+          className="px-6 w-full py-8 border-2 border-border border-dashed bg-main rounded-md cursor-pointer">
           <input {...getInputProps()} />
           <span className="mx-auto flex-colo text-subMain text-3xl">
             <FiUploadCloud />
@@ -40,10 +39,10 @@ function Uploder({ setImageUrl }) {
           <p className="text-sm mt-2">Перетягніть зображення сюди</p>
           <em className="text-xs text-border">
             {isDragActive
-              ? "Кидай, як гаряче!"
+              ? 'Кидай, як гаряче!'
               : isDragReject
-              ? "Непідтримуваний тип файлу..."
-              : "приймаються лише файли у форматі .jpg та .png"}
+              ? 'Непідтримуваний тип файлу...'
+              : 'приймаються лише файли у форматі .jpg та .png'}
           </em>
         </div>
       )}

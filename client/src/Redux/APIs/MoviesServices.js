@@ -38,3 +38,21 @@ export const reviewMovieService = async (token, id, review) => {
   });
   return data;
 };
+
+export const deleteMovieService = async (token, id) => {
+  const { data } = await Axios.delete(`/movies/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return data;
+};
+
+export const deleteAllMoviesService = async (token) => {
+  const { data } = await Axios.delete(`/movies`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return data;
+};
