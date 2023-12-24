@@ -122,7 +122,7 @@ export const CastsReducer = (state = { casts: [] }, action) => {
       return { casts: [...state.casts, action.payload] };
     case moviesConstants.EDIT_CAST:
       const updatedCasts = state.casts.map((cast) =>
-        cast.id === action.payload.id ? action.payload : cast
+        cast.id === action.payload.id ? action.payload : cast,
       );
       return {
         casts: updatedCasts,
@@ -134,6 +134,21 @@ export const CastsReducer = (state = { casts: [] }, action) => {
       };
     case moviesConstants.RESET_CAST:
       return { casts: [] };
+    default:
+      return state;
+  }
+};
+
+export const updateMovieReducer = (state = {}, action) => {
+  switch (action.type) {
+    case moviesConstants.UPDATE_MOVIE_REQUEST:
+      return { isLoading: true };
+    case moviesConstants.UPDATE_MOVIE_SUCCESS:
+      return { isLoading: false, isSuccess: true };
+    case moviesConstants.UPDATE_MOVIE_FAIL:
+      return { isLoading: false, isError: action.payload };
+    case moviesConstants.UPDATE_MOVIE_RESET:
+      return {};
     default:
       return state;
   }

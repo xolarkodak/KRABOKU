@@ -1,32 +1,31 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import MovieCasts from "../Components/Single/MovieCasts";
-import MovieInfo from "../Components/Single/MovieInfo";
-import MovieRates from "../Components/Single/MovieRates";
-import Titles from "../Components/Titles";
-import Layout from "../Layout/Layout";
-import { BsCollectionFill } from "react-icons/bs";
-import Movie from "../Components/Movie";
-import ShareMovieModal from "../Components/Modals/ShareModal";
-import { useDispatch, useSelector } from "react-redux";
-import { getMovieByIdAction } from "../Redux/Actions/MoviesActions";
-import Loader from "../Components/Notfications/Loader";
-import { RiMovie2Line } from "react-icons/ri";
-import { SidebarContext } from "../Context/DrawerContext";
-import { DownloadVideo } from "../Context/Functionalities";
-import FileSaver from "file-saver";
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import MovieCasts from '../Components/Single/MovieCasts';
+import MovieInfo from '../Components/Single/MovieInfo';
+import MovieRates from '../Components/Single/MovieRates';
+import Titles from '../Components/Titles';
+import Layout from '../Layout/Layout';
+import { BsCollectionFill } from 'react-icons/bs';
+import Movie from '../Components/Movie';
+import ShareMovieModal from '../Components/Modals/ShareModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMovieByIdAction } from '../Redux/Actions/MoviesActions';
+import Loader from '../Components/Notfications/Loader';
+import { RiMovie2Line } from 'react-icons/ri';
+import { SidebarContext } from '../Context/DrawerContext';
+import { DownloadVideo } from '../Context/Functionalities';
+import FileSaver from 'file-saver';
 
 function SingleMovie() {
   const [modalOpen, setModalOpen] = useState(false);
   const { progress, setprogress } = useContext(SidebarContext);
   const { id } = useParams();
   const dispatch = useDispatch();
-  const sameClass = "w-full gap-6 flex-colo min-h-screen";
-  const { isLoading, isError, movie } = useSelector(
-    (state) => state.getMovieById
-  );
+  const sameClass = 'w-full gap-6 flex-colo min-h-screen';
+  const { isLoading, isError, movie } = useSelector((state) => state.getMovieById);
   const { movies } = useSelector((state) => state.getAllMovies);
   const RelatedMovies = movies?.filter((m) => m.category === movie?.category);
+
   const DownloadMovieVideo = async (videoUrl, name) => {
     await DownloadVideo(videoUrl, setprogress).then((data) => {
       setprogress(0);
@@ -53,11 +52,7 @@ function SingleMovie() {
         </div>
       ) : (
         <>
-          <ShareMovieModal
-            modalOpen={modalOpen}
-            setModalOpen={setModalOpen}
-            movie={movie}
-          />
+          <ShareMovieModal modalOpen={modalOpen} setModalOpen={setModalOpen} movie={movie} />
           <MovieInfo
             movie={movie}
             setModalOpen={setModalOpen}

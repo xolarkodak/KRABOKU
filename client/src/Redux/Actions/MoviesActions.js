@@ -121,43 +121,53 @@ export const deleteAllMoviesAction = () => async (dispatch, getState) => {
   }
 };
 
-
-
 export const createMovieAction = (movie) => async (dispatch, getState) => {
   try {
     dispatch({ type: moviesConstants.CREATE_MOVIE_REQUEST });
-    const response = await moviesAPIs.createMovieService(
-      tokenProtection(getState),
-      movie
-    );
+    const response = await moviesAPIs.createMovieService(tokenProtection(getState), movie);
     dispatch({
       type: moviesConstants.CREATE_MOVIE_SUCCESS,
       payload: response,
     });
-    toast.success("Фільм успішно створений");
+    toast.success('Фільм успішно створений');
     dispatch(deleteAllCastAction());
   } catch (error) {
     ErrorsAction(error, dispatch, moviesConstants.CREATE_MOVIE_FAIL);
   }
 };
 
-
 export const addCastAction = (cast) => async (dispatch, getState) => {
   dispatch({ type: moviesConstants.ADD_CAST, payload: cast });
-  localStorage.setItem("casts", JSON.stringify(getState().casts.casts));
+  localStorage.setItem('casts', JSON.stringify(getState().casts.casts));
 };
 
 export const removeCastAction = (id) => async (dispatch, getState) => {
   dispatch({ type: moviesConstants.DELETE_CAST, payload: id });
-  localStorage.setItem("casts", JSON.stringify(getState().casts.casts));
+  localStorage.setItem('casts', JSON.stringify(getState().casts.casts));
 };
 
 export const updateCastAction = (cast) => async (dispatch, getState) => {
   dispatch({ type: moviesConstants.EDIT_CAST, payload: cast });
-  localStorage.setItem("casts", JSON.stringify(getState().casts.casts));
+  localStorage.setItem('casts', JSON.stringify(getState().casts.casts));
 };
 
 export const deleteAllCastAction = () => async (dispatch) => {
   dispatch({ type: moviesConstants.RESET_CAST });
-  localStorage.removeItem("casts");
+  localStorage.removeItem('casts');
+};
+
+export const updateMovieAction = (id, movie) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: moviesConstants.UPDATE_MOVIE_REQUEST });
+    const response = await moviesAPIs.updateMovieService(tokenProtection(getState), id, movie);
+    dispatch({
+      type: moviesConstants.UPDATE_MOVIE_SUCCESS,
+      payload: response,
+    });
+    toast.success('Фільм успішно оновлено');
+    dispatch(getMovieByIdAction(id));
+    dispatch(deleteAllCastAction());
+  } catch (error) {
+    ErrorsAction(error, dispatch, moviesConstants.UPDATE_MOVIE_FAIL);
+  }
 };
