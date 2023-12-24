@@ -47,8 +47,8 @@ function AddMovie() {
     dispatch(
       createMovieAction({
         ...data,
-        image: imageWithoutTitle,
-        titleImage: imageTitle,
+        image: imageWithoutTitle ? imageWithoutTitle: "/images/user.jpg",
+        titleImage: imageTitle ? imageTitle: "/images/user.jpg",
         video: videoUrl,
         casts,
       })
@@ -79,7 +79,7 @@ function AddMovie() {
       dispatch({ type: "CREATE_MOVIE_RESET" });
       navigate("/addMovie");
     }
-    // if error then show error
+
     if (isError) {
       toast.error("Щось пішло не так.");
       dispatch({ type: "CREATE_MOVIE_RESET" });

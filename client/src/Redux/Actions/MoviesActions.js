@@ -122,6 +122,7 @@ export const deleteAllMoviesAction = () => async (dispatch, getState) => {
 };
 
 
+
 export const createMovieAction = (movie) => async (dispatch, getState) => {
   try {
     dispatch({ type: moviesConstants.CREATE_MOVIE_REQUEST });
@@ -133,12 +134,13 @@ export const createMovieAction = (movie) => async (dispatch, getState) => {
       type: moviesConstants.CREATE_MOVIE_SUCCESS,
       payload: response,
     });
-    toast.success("Movie created successfully");
+    toast.success("Фільм успішно створений");
     dispatch(deleteAllCastAction());
   } catch (error) {
     ErrorsAction(error, dispatch, moviesConstants.CREATE_MOVIE_FAIL);
   }
 };
+
 
 export const addCastAction = (cast) => async (dispatch, getState) => {
   dispatch({ type: moviesConstants.ADD_CAST, payload: cast });

@@ -30,7 +30,7 @@ const Swipper = ({ sameClass, movies }) => {
       {movies?.slice(0, 6).map((movie, index) => (
         <SwiperSlide key={index} className="relative rounded overflow-hidden">
           <img
-            src={movie?.image ? movie.image : '/images/user.png'}
+            src={movie?.image ? movie.image : '/images/user.jpg'}
             alt={movie?.name}
             className="w-full h-full object-cover"
           />

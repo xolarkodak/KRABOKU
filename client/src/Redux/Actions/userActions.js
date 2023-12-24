@@ -93,7 +93,7 @@ const deleteFavoriteMoviesAction = () => async (dispatch, getState) => {
     dispatch({
       type: userConstants.DELETE_FAVORITE_MOVIES_SUCCESS,
     });
-    toast.success('Favorite Movies Deleted');
+    toast.success('Улюблені фільми видалено');
   } catch (error) {
     ErrorsAction(error, dispatch, userConstants.DELETE_FAVORITE_MOVIES_FAIL);
   }
@@ -133,7 +133,7 @@ const likeMovieAction = (movieId) => async (dispatch, getState) => {
       type: userConstants.LIKE_MOVIE_SUCCESS,
       payload: response,
     });
-    toast.success('Added to your favorites');
+    toast.success('Додано до улюбленого');
     dispatch(getFavoriteMoviesAction());
   } catch (error) {
     ErrorsAction(error, dispatch, userConstants.LIKE_MOVIE_FAIL);

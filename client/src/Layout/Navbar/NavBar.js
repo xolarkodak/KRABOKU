@@ -42,7 +42,7 @@ function NavBar() {
                 type="search"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search Movie Name from here"
+                placeholder="Знайти фільм"
                 className="font-medium placeholder:text-border text-sm w-11/12 h-12 bg-transparent border-none px-2 text-black"
               />
             </form>
@@ -63,7 +63,7 @@ function NavBar() {
               className={Hover}>
               {userInfo ? (
                 <img
-                  src={userInfo?.image ? userInfo?.image : '/images/user.png'}
+                  src={userInfo?.image ? userInfo?.image : '/images/user.jpg'}
                   alt={userInfo?.fullName}
                   className="w-8 h-8 rounded-full border object-cover border-subMain"
                 />

@@ -51,7 +51,7 @@ function CastsModal({ modalOpen, setModalOpen, cast }) {
           id: generateId,
         })
       );
-      toast.success("Cast created successfully");
+      toast.success("Успішно створено акторський склад");
     }
     reset();
     setCastImage("");
@@ -68,7 +68,7 @@ function CastsModal({ modalOpen, setModalOpen, cast }) {
     <MainModal modalOpen={modalOpen} setModalOpen={setModalOpen}>
       <div className="inline-block sm:w-4/5 border border-border md:w-3/5 lg:w-2/5 w-full align-middle p-10 overflow-y-auto h-full bg-main text-white rounded-2xl">
         <h2 className="text-3xl font-bold">
-          {cast ? "Update Cast" : "Create Cast"}
+          {cast ? "Оновлення акторського складу" : "Створити акторський склад"}
         </h2>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -76,8 +76,8 @@ function CastsModal({ modalOpen, setModalOpen, cast }) {
         >
           <div className="w-full">
             <Input
-              label="Cast name"
-              placeholder="John Doe"
+              label="Ім'я актора"
+              placeholder="Джон Ортега"
               type="text"
               name="name"
               register={register("name")}
@@ -86,10 +86,10 @@ function CastsModal({ modalOpen, setModalOpen, cast }) {
             {errors.name && <InlineError text={errors.name.message} />}
           </div>
           <div className="flex flex-col gap-2">
-            <p className="text-border font-semibold text-sm">Cast Image</p>
+            <p className="text-border font-semibold text-sm">Зображення актора</p>
             <Uploder setImageUrl={setCastImage} />
             <Imagepreview
-              image={image ? image : "/images/user.png"}
+              image={image ? image : "/images/user.jpg"}
               name="castImage"
             />
           </div>
@@ -98,7 +98,7 @@ function CastsModal({ modalOpen, setModalOpen, cast }) {
             onClick={() => setModalOpen(false)}
             className="w-full flex-rows gap-4 py-3 text-lg transitions hover:bg-dry border-2 border-subMain rounded bg-subMain text-white"
           >
-            {cast ? "Update" : "Add"}
+            {cast ? "Оновити" : "Додати"}
           </button>
         </form>
       </div>
