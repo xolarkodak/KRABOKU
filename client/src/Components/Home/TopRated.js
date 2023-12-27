@@ -45,13 +45,13 @@ const SwiperTop = ({ prevEl, nextEl, movies }) => {
       }}>
       {movies?.map((movie, index) => (
         <SwiperSlide key={index}>
-          <div className="p-4 h-rate hovered border border-border bg-dry rounded-lg overflow-hidden">
+          <div className="h-rate hovered rounded-[40px] bg-dry overflow-hidden">
             <img
               src={movie?.titleImage ? movie.titleImage : '/images/user.jpg'}
               alt={movie?.name}
-              className="w-full h-full object-cover rounded-lg"
+              className="w-full h-128 object-cover rounded-lg"
             />
-            <div className="px-4 hoveres gap-6 text-center absolute bg-black bg-opacity-70 top-0 left-0 right-0 bottom-0">
+            <div className="px-4 hoveres gap-6 text-center absolute bg-black rounded-[40px] bg-opacity-70 top-0 left-0 right-0 bottom-0">
               <button
                 onClick={() => LikeMovie(movie, dispatch, userInfo)}
                 disabled={isLiked(movie) || isLoading}

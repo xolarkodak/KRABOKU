@@ -36,21 +36,24 @@ function NavBar() {
               onSubmit={handleSearch}
               className="w-full text-sm bg-dryGray rounded flex-btn gap-4">
               <button type="submit" className="bg-subMain w-12 flex-colo h-12 rounded text-white">
-                <FaSearch />
+                <FaSearch className='w-5 h-5'/>
               </button>
               <input
                 type="search"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Знайти фільм"
-                className="font-medium placeholder:text-border text-sm w-11/12 h-12 bg-transparent border-none px-2 text-black"
+                className="font-medium placeholder:text-border text-[18px] w-11/12 h-12 bg-transparent border-none px-2 text-black"
               />
             </form>
           </div>
 
-          <div className="col-span-3 font-medium text-sm hidden xl:gap-14 2xl:gap-20 justify-between lg:flex xl:justify-end items-center">
+          <div className="col-span-3 font-medium text-[16px] hidden xl:gap-14 2xl:gap-12 justify-between lg:flex xl:justify-end items-center">
             <NavLink to="/movies" className={Hover}>
               Фільми
+            </NavLink>
+            <NavLink to="/news" className={Hover}>
+              Новини
             </NavLink>
             <NavLink to="/about-us" className={Hover}>
               Про нас
@@ -65,14 +68,14 @@ function NavBar() {
                 <img
                   src={userInfo?.image ? userInfo?.image : '/images/user.jpg'}
                   alt={userInfo?.fullName}
-                  className="w-8 h-8 rounded-full border object-cover border-subMain"
+                  className="w-10 h-10 rounded-full border object-cover border-subMain"
                 />
               ) : (
-                <CgUser className="w-8 h-8" />
+                <CgUser className="w-10 h-10" />
               )}
             </NavLink>
             <NavLink to="/favorites" className={`${Hover} relative`}>
-              <FaHeart className="w-6 h-6" />
+              <FaHeart className="w-7 h-7" />
               <div className="w-5 h-5 flex-colo rounded-full text-xs bg-subMain text-white absolute -top-5 -right-1">
                 {likedMovies?.length || 0}
               </div>

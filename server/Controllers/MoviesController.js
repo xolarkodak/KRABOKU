@@ -21,7 +21,7 @@ const getMovies = asyncHandler(async (req, res) => {
     };
 
     const page = Number(req.query.pageNumber) || 1; 
-    const limit = 10; 
+    const limit = 12; 
     const skip = (page - 1) * limit; 
     
     const movies = await Movie.find(query)
@@ -99,8 +99,8 @@ const createMovieReview = asyncHandler(async (req, res) => {
       movie.numberOfReviews = movie.reviews.length;
 
       movie.rate =
-        movie.reviews.reduce((acc, item) => item.rating + acc, 0) /
-        movie.reviews.length;
+        Math.floor(movie.reviews.reduce((acc, item) => item.rating + acc, 0) /
+        movie.reviews.length);
 
       await movie.save();
       res.status(201).json({

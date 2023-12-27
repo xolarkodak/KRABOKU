@@ -35,16 +35,16 @@ const Swipper = ({ sameClass, movies }) => {
             className="w-full h-full object-cover"
           />
           <div className="absolute linear-bg xl:pl-52 sm:pl-32 pl-8 top-0 bottom-0 right-0 left-0 flex flex-col justify-center lg:gap-8 md:gap-5 gap-4">
-            <h1 className="xl:text-4xl truncate capitalize font-sans sm:text-2xl text-xl font-bold">
+            <h1 className="xl:text-[50px] z-50 truncate capitalize font-sans sm:text-[50px] text-[50px] font-bold">
               {movie?.name}
             </h1>
-            <div className="flex gap-5 items-center text-dryGray">
+            <div className="flex gap-5 items-center text-dryGray z-1">
               <FlexMovieItems movie={movie} />
             </div>
             <div className="flex gap-5 items-center">
               <Link
                 to={`/movie/${movie?._id}`}
-                className="bg-subMain hover:text-main transitions text-white px-8 py-3 rounded font-medium sm:text-sm text-xs">
+                className="bg-subMain hover:text-main transitions text-white px-8 py-3 rounded font-medium sm:text-[18px] text-[18px]">
                 Дивись
               </Link>
               <button
@@ -52,7 +52,7 @@ const Swipper = ({ sameClass, movies }) => {
                 disabled={isLiked(movie) || isLoading}
                 className={`bg-white
               ${isLiked(movie) ? 'text-subMain' : 'text-white'}
-               hover:text-subMain transitions  px-4 py-3 rounded text-sm bg-opacity-30`}>
+               hover:text-subMain transitions  px-4 py-3 rounded text-[25px] bg-opacity-30`}>
                 <FaHeart />
               </button>
             </div>

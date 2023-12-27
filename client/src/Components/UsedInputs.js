@@ -1,9 +1,9 @@
 export const Message = ({ label, placeholder, name, register }) => {
   return (
-    <div className="text-sm w-full">
+    <div className="text-[17px] w-full">
       <label className="text-border font-semibold">{label}</label>
       <textarea
-        className="w-full h-40 mt-2 p-6 bg-main border border-border rounded"
+        className="w-full h-40 mt-2 p-6 bg-main border border-main rounded-[20px]"
         placeholder={placeholder}
         {...register}
         name={name}
@@ -17,7 +17,7 @@ export const Select = ({ label, options, register, name }) => {
     <>
       <label className="text-border font-semibold">{label}</label>
       <select
-        className="w-full mt-2 px-6 py-4 text-text bg-main border border-border rounded"
+        className="w-full mt-2 px-6 py-4 text-text bg-main border border-main rounded-[10px]"
         {...register}
         name={name}
       >

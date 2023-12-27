@@ -71,30 +71,30 @@ function MovieRates({ movie }) {
   return (
     <div className="my-12">
       <Titles title="Відгуки" Icon={BsBookmarkStarFill} />
-      <div className="mt-10 xl:grid flex-colo grid-cols-5 gap-12 bg-dry xs:p-10 py-10 px-2 sm:p-20 rounded">
+      <div className="mt-10 xl:grid flex-colo grid-cols-5 gap-12 bg-dry xs:p-10 py-10 px-2 sm:p-20 rounded-[30px]">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="xl:col-span-2 w-full flex flex-col gap-8"
         >
-          <h3 className="text-xl text-text font-semibold">
+          <h3 className="text-2xl text-text font-semibold">
             Рецензія "{movie?.name}"
           </h3>
-          <p className="text-sm leading-7 font-medium text-border">
+          <p className="text-[17px] leading-7 font-medium text-border">
             Напишіть рецензію на цей фільм. Він буде розміщений на цій сторінці.
           </p>
-          <div className="text-sm w-full">
+          <div className="text-[17px] w-full">
             <Select
-              label="Виберіть рейтинг"
+              label="Виберіть рейтинг "
               options={Ratings}
               name="rating"
               register={{ ...register("rating") }}
             />
-            <div className="flex mt-4 text-lg gap-2 text-star">
+            <div className="flex mt-4 text-[20px] gap-2 text-star">
               <Rating value={watch("rating", false)} />
             </div>
             {errors.rating && <InlineError text={errors.rating.message} />}
           </div>
-          <div className="w-full">
+          <div className="w-full ">
             <Message
               name="comment"
               register={{ ...register("comment") }}
@@ -107,16 +107,16 @@ function MovieRates({ movie }) {
             <button
               disabled={isLoading}
               type="submit"
-              className="bg-subMain text-white py-4 w-full flex-colo rounded"
+              className="bg-subMain text-white py-4 w-full flex-colo rounded-[25px] text-[25px]"
             >
               {isLoading ? "Завантаження..." : "Надіслати"}
             </button>
           ) : (
             <Link
               to="/login"
-              className="bg-main border border-dashed border-border text-subMain py-4 w-full flex-colo rounded"
+              className="bg-main border border-dashed border-border text-subMain py-4 w-full flex-colo rounded-[25px] text-[25px]"
             >
-              Увійдіть, щоб переглянути цей фільм
+              Увійдіть, щоб оцінити цей фільм
             </Link>
           )}
         </form>
@@ -124,7 +124,7 @@ function MovieRates({ movie }) {
           <h3 className="text-xl text-text font-semibold">
             Відгуки ({movie?.numberOfReviews})
           </h3>
-          <div className="w-full flex flex-col bg-main gap-6 rounded-lg md:p-12 p-6 h-header overflow-y-scroll">
+          <div className="w-full flex flex-col bg-main gap-2 rounded-lg md:p-100 p-6 h-header overflow-y-scroll">
             {movie?.reviews?.length > 0 ? (
               movie?.reviews?.map((review) => (
                 <div
@@ -142,13 +142,13 @@ function MovieRates({ movie }) {
                       className="w-full h-24 rounded-lg object-cover"
                     />
                   </div>
-                  <div className="col-span-7 flex flex-col gap-2">
+                  <div className="col-span-7 flex flex-col gap-1">
                     <h2>{review?.userName}</h2>
-                    <p className="text-xs leading-6 font-medium text-text">
+                    <p className="text-2xs leading-6 font-medium text-text">
                       {review?.comment}
                     </p>
                   </div>
-                  <div className="col-span-3 flex-rows border-l border-border text-xs gap-1 text-star">
+                  <div className="col-span-3 flex-rows border-l border-border text-2xs gap-1 text-star">
                     <Rating value={review?.rating} />
                   </div>
                 </div>

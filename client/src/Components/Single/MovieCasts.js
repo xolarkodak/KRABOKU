@@ -39,11 +39,11 @@ function MovieCasts({ movie }) {
           >
             {movie?.casts?.map((cast) => (
               <SwiperSlide key={cast?._id}>
-                <div className="w-full p-3 italic text-xs text-text rounded flex-colo bg-dry border border-gray-800">
+                <div className="h-full p-3 italic text-3xs text-text rounded-[40px] flex-colo bg-dry border border-gray-800">
                   <img
                     src={cast?.image ? cast?.image : "/images/user.jpg"}
                     alt={cast?.name}
-                    className="w-full h-64 object-cover rounded mb-4"
+                    className="w-128 object-cover rounded-[30px] mb-4"
                   />
                   <p>{cast?.name}</p>
                 </div>
