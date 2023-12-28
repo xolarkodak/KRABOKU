@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../Components/Notfications/Loader';
 import { RiMovie2Line } from 'react-icons/ri';
 import { SidebarContext } from '../Context/DrawerContext';
+import { getNewsByIdAction } from '../Redux/Actions/NewsActions';
 
 function SingleNews() {
   const [modalOpen, setModalOpen] = useState(false);

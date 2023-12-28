@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import Filters from '../Components/Filters';
+
 import Layout from '../Layout/Layout';
 import News from '../Components/News';
 import { useDispatch, useSelector } from 'react-redux';
@@ -42,7 +42,6 @@ function NewsPage() {
     if (isError) {
       toast.error(isError);
     }
-    dispatch(getAllNewsAction(queries));
   }, [dispatch, isError, queries]);
 
   const nextPage = () => {
@@ -79,8 +78,7 @@ function NewsPage() {
   return (
     <Layout>
       <div className="min-height-screen container mx-auto px-2 my-6">
-        <Filters data={datas} />
-        <p className="text-lg font-medium my-6">
+        <p className="text-3xl font-medium my-6">
           Загалом <span className="font-bold text-subMain">{news ? news?.length : 0}</span> новин
           знайдено {search && `for "${search}"`}
         </p>
