@@ -1,11 +1,12 @@
 import React from "react";
 import { BsFillGridFill } from "react-icons/bs";
-import { FaListAlt, FaUsers, FaHeart } from "react-icons/fa";
+import { FaListAlt, FaUsers, FaHeart, FaHashtag, FaNewspaper } from "react-icons/fa";
 import {
   RiMovie2Fill,
   RiLockPasswordLine,
   RiLogoutCircleLine,
 } from "react-icons/ri";
+import { GrTableAdd } from "react-icons/gr";
 import { HiViewGridAdd } from "react-icons/hi";
 import { FiSettings } from "react-icons/fi";
 import Layout from "../../Layout/Layout";
@@ -53,6 +54,21 @@ function SideBar({ children }) {
           name: "Користувачі",
           link: "/users",
           icon: FaUsers,
+        },
+        {
+          name: "Список новин",
+          link: "/newslist",
+          icon: FaNewspaper,
+        },
+        {
+          name: "Додати новину",
+          link: "/addnews",
+          icon: GrTableAdd,
+        },
+        {
+          name: "Теги",
+          link: "/tags",
+          icon: FaHashtag,
         },
         {
           name: "Оновити профіль",

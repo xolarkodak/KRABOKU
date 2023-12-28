@@ -4,18 +4,18 @@ import { TbPlayerTrackNext, TbPlayerTrackPrev } from 'react-icons/tb';
 import { useDispatch, useSelector } from 'react-redux';
 import { Empty } from '../../../Components/Notfications/Empty';
 import Loader from '../../../Components/Notfications/Loader';
-import Table from '../../../Components/Table';
+import Table from '../../../Components/TableNews';
 import {
   deleteAllMoviesAction,
   deleteMovieAction,
-  getAllMoviesAction,
-} from '../../../Redux/Actions/MoviesActions';
+  getAllNewsAction,
+} from '../../../Redux/Actions/NewsActions';
 import SideBar from '../SideBar';
 
 function MoviesList() {
   const dispatch = useDispatch();
   const sameClass = 'text-white p-2 rounded font-semibold border-2 border-subMain hover:bg-subMain';
-  const { isLoading, isError, movies, pages, page } = useSelector((state) => state.getAllMovies);
+  const { isLoading, isError, movies, pages, page } = useSelector((state) => state.getAllNews);
   const { isLoading: deleteLoading, isError: deleteError } = useSelector(
     (state) => state.deleteMovie,
   );
@@ -24,16 +24,16 @@ function MoviesList() {
   );
 
   const deleteMovieHandler = (id) => {
-    window.confirm('Ви дійсно хочете видалити цей фільм??') && dispatch(deleteMovieAction(id));
+    window.confirm('Ви дійсно хочете видалити цю новину?') && dispatch(deleteMovieAction(id));
   };
 
   const deleteAllMoviesHandler = () => {
-    window.confirm('Ви впевнені, що хочете видалити всі фільми?') &&
+    window.confirm('Ви впевнені, що хочете видалити всі новини?') &&
       dispatch(deleteAllMoviesAction());
   };
 
   useEffect(() => {
-    dispatch(getAllMoviesAction({}));
+    //dispatch(getAllNewsAction({}));
     if (isError || deleteError || allError) {
       toast.error(isError || deleteError || allError);
     }
@@ -41,14 +41,14 @@ function MoviesList() {
 
   const nextPage = () => {
     dispatch(
-      getAllMoviesAction({
+      getAllNewsAction({
         pageNumber: page + 1,
       }),
     );
   };
   const prevPage = () => {
     dispatch(
-      getAllMoviesAction({
+      getAllNewsAction({
         pageNumber: page - 1,
       }),
     );
@@ -58,7 +58,7 @@ function MoviesList() {
     <SideBar>
       <div className="flex flex-col gap-6">
         <div className="flex-btn gap-2">
-          <h2 className="text-xl font-bold">Список фільмів</h2>
+          <h2 className="text-xl font-bold">Список новин</h2>
           {movies?.length > 0 && (
             <button
               disabled={allLoading}
@@ -83,7 +83,7 @@ function MoviesList() {
             </div>
           </>
         ) : (
-          <Empty message="У вас немає фільмів" />
+          <Empty message="У вас немає новин" />
         )}
       </div>
     </SideBar>

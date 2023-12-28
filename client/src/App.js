@@ -10,6 +10,15 @@ import AddMovie from "./Screens/Dashboard/Admin/AddMovie";
 import Categories from "./Screens/Dashboard/Admin/Categories";
 import Dashboard from "./Screens/Dashboard/Admin/Dashboard";
 import MoviesList from "./Screens/Dashboard/Admin/MovieList";
+
+
+import NewsPage from "./Screens/News"
+import SingleNews from "./Screens/SingleNews";
+import NewsList from "./Screens/Dashboard/Admin/NewsLists";
+import AddNews from "./Screens/Dashboard/Admin/AddNews";
+import EditNews from "./Screens/Dashboard/Admin/EditNews";
+import Tags from "./Screens/Dashboard/Admin/Tags";
+
 import Users from "./Screens/Dashboard/Admin/Users";
 import FavoritesMovies from "./Screens/Dashboard/FavoritesMovies";
 import Password from "./Screens/Dashboard/Password";
@@ -25,8 +34,10 @@ import DrawerContext from "./Context/DrawerContext";
 import ToastContainer from "./Components/Notfications/ToastContainer";
 import { AdminProtectedRouter, ProtectedRouter } from "./ProtectedRouter";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCategoriesAction } from "./Redux/Actions/CategoriesActions";
+//import { getAllCategoriesAction } from "./Redux/Actions/CategoriesActions";
+import { getAllTagsAction } from "./Redux/Actions/TagsActions";
 import { getAllMoviesAction } from "./Redux/Actions/MoviesActions";
+import { getAllNewsAction } from './Redux/Actions/NewsActions';
 import { getFavoriteMoviesAction } from "./Redux/Actions/userActions";
 import toast from "react-hot-toast";
 import EditMovie from "./Screens/Dashboard/Admin/EditMovie";
@@ -39,8 +50,9 @@ function App() {
   const { isError: catError } = useSelector((state) => state.categoryGetAll);
 
   useEffect(() => {
-    dispatch(getAllCategoriesAction());
     dispatch(getAllMoviesAction({}));
+    dispatch(getAllNewsAction({}));
+    dispatch(getAllTagsAction());
     if (userInfo) {
       dispatch(getFavoriteMoviesAction());
     }
@@ -64,6 +76,8 @@ function App() {
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/movies" element={<MoviesPage />} />
+            <Route path="/news" element={<NewsPage />} />
+            <Route path="/news/:id" element={<SingleNews />} />
             <Route path="/movies/:search" element={<MoviesPage />} />
             <Route path="/movie/:id" element={<SingleMovie />} />
             <Route path="/watch/:id" element={<WatchPage />} />
@@ -83,6 +97,11 @@ function App() {
                 <Route path="/users" element={<Users />} />
                 <Route path="/addmovie" element={<AddMovie />} />
                 <Route path="/edit/:id" element={<EditMovie />} />
+                
+                <Route path="/newslist" element={<NewsList />} />
+                <Route path="/addnews" element={<AddNews />} />
+                <Route path="/editnews/:id" element={<EditNews />} />
+                <Route path="/tags" element={<Tags />} />
               </Route>
             </Route>
           </Routes>
