@@ -1,12 +1,5 @@
-import { MoviesData } from "../Data/MovieData.js";
-import Movie from "../Models/NewsModel.js";
-import asyncHandler from "express-async-handler";
-
-const importMovies = asyncHandler(async (req, res) => {
-  await Movie.deleteMany({});
-  const movies = await Movie.insertMany(MoviesData);
-  res.status(201).json(movies);
-});
+import News from '../Models/NewsModel.js';
+import asyncHandler from 'express-async-handler';
 
 const getNews = asyncHandler(async (req, res) => {
   try {
@@ -17,76 +10,72 @@ const getNews = asyncHandler(async (req, res) => {
       ...(language && { language }),
       ...(rate && { rate }),
       ...(year && { year }),
-      ...(search && { name: { $regex: search, $options: "i" } }),
+      ...(search && { name: { $regex: search, $options: 'i' } }),
     };
 
-    const page = Number(req.query.pageNumber) || 1; 
-    const limit = 12; 
-    const skip = (page - 1) * limit; 
-    
-    const movies = await Movie.find(query)
-      .skip(skip)
-      .limit(limit);
+    const page = Number(req.query.pageNumber) || 1;
+    const limit = 12;
+    const skip = (page - 1) * limit;
 
-    const count = await Movie.countDocuments(query);
+    const news = await News.find(query).skip(skip).limit(limit);
+
+    const count = await News.countDocuments(query);
 
     res.json({
-      movies,
+      news,
       page,
-      pages: Math.ceil(count / limit), 
-      totalMovies: count, 
+      pages: Math.ceil(count / limit),
+      totalNews: count,
     });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
-
-const getMovieById = asyncHandler(async (req, res) => {
+const getNewsById = asyncHandler(async (req, res) => {
   try {
-    const movie = await Movie.findById(req.params.id);
-    if (movie) {
-      res.json(movie);
-    }
-    else {
+    const news_ = await News.findById(req.params.id);
+    if (news_) {
+      res.json(news_);
+    } else {
       res.status(404);
-      throw new Error("Фільм не знайдено");
+      throw new Error('Новину не знайдено');
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
-const getTopRatedMovies = asyncHandler(async (req, res) => {
+const getTopRatedNews = asyncHandler(async (req, res) => {
   try {
-    const movies = await Movie.find({}).sort({ rate: -1 });
-    res.json(movies);
+    const news = await News.find({}).sort({ rate: -1 });
+    res.json(news);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
-const getRandomMovies = asyncHandler(async (req, res) => {
+const getRandomNews = asyncHandler(async (req, res) => {
   try {
-    const movies = await Movie.aggregate([{ $sample: { size: 8 } }]);
-    res.json(movies);
+    const news = await News.aggregate([{ $sample: { size: 8 } }]);
+    res.json(news);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
-const createMovieReview = asyncHandler(async (req, res) => {
+const createNewsReview = asyncHandler(async (req, res) => {
   const { rating, comment } = req.body;
   try {
-    const movie = await Movie.findById(req.params.id);
+    const news_ = await News.findById(req.params.id);
 
-    if (movie) {
-      const alreadyReviewed = movie.reviews.find(
-        (r) => r.userId.toString() === req.user._id.toString()
+    if (news_) {
+      const alreadyReviewed = news_.reviews.find(
+        (r) => r.userId.toString() === req.user._id.toString(),
       );
       if (alreadyReviewed) {
         res.status(400);
-        throw new Error("Ви вже переглядали цей фільм");
+        throw new Error('Ви вже переглядали цю новину');
       }
       const review = {
         userName: req.user.fullName,
@@ -95,27 +84,27 @@ const createMovieReview = asyncHandler(async (req, res) => {
         rating: Number(rating),
         comment,
       };
-      movie.reviews.push(review);
-      movie.numberOfReviews = movie.reviews.length;
+      news_.reviews.push(review);
+      news_.numberOfReviews = news_.reviews.length;
 
-      movie.rate =
-        Math.floor(movie.reviews.reduce((acc, item) => item.rating + acc, 0) /
-        movie.reviews.length);
+      news_.rate = Math.floor(
+        news_.reviews.reduce((acc, item) => item.rating + acc, 0) / news_.reviews.length,
+      );
 
-      await movie.save();
+      await news_.save();
       res.status(201).json({
-        message: "Відгук додано",
+        message: 'Відгук додано',
       });
     } else {
       res.status(404);
-      throw new Error("Фільм не знайдено");
+      throw new Error('Новину не знайдено');
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
-const updateMovie = asyncHandler(async (req, res) => {
+const updateNews = asyncHandler(async (req, res) => {
   try {
     const {
       name,
@@ -132,62 +121,58 @@ const updateMovie = asyncHandler(async (req, res) => {
       casts,
     } = req.body;
 
-    const movie = await Movie.findById(req.params.id);
+    const news_ = await News.findById(req.params.id);
 
-    if (movie) {
-      movie.name = name || movie.name;
-      movie.desc = desc || movie.desc;
-      movie.image = image || movie.image;
-      movie.titleImage = titleImage || movie.titleImage;
-      movie.rate = rate || movie.rate;
-      movie.numberOfReviews = numberOfReviews || movie.numberOfReviews;
-      movie.category = category || movie.category;
-      movie.time = time || movie.time;
-      movie.language = language || movie.language;
-      movie.year = year || movie.year;
-      movie.video = video || movie.video;
-      movie.casts = casts || movie.casts;
+    if (news_) {
+      news_.name = name || news_.name;
+      news_.desc = desc || news_.desc;
+      news_.image = image || news_.image;
+      news_.titleImage = titleImage || news_.titleImage;
+      news_.rate = rate || news_.rate;
+      news_.numberOfReviews = numberOfReviews || news_.numberOfReviews;
+      news_.category = category || news_.category;
+      news_.time = time || news_.time;
+      news_.language = language || news_.language;
+      news_.year = year || news_.year;
+      news_.video = video || news_.video;
+      news_.casts = casts || news_.casts;
 
-      const updatedMovie = await movie.save();
-      res.status(201).json(updatedMovie);
+      const updatedNews = await news_.save();
+      res.status(201).json(updatedNews);
     } else {
       res.status(404);
-      throw new Error("Фільм не знайдено");
+      throw new Error('Новину не знайдено');
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
-
-const deleteMovie = asyncHandler(async (req, res) => {
+const deleteNews = asyncHandler(async (req, res) => {
   try {
-    const movie = await Movie.findById(req.params.id);
-    if (movie) {
-      await movie.remove();
-      res.json({ message: "Фільм видалено" });
-    }
-    else {
+    const news_ = await News.findById(req.params.id);
+    if (news_) {
+      await news_.remove();
+      res.json({ message: 'Новину видалено' });
+    } else {
       res.status(404);
-      throw new Error("Фільм не знайдено");
+      throw new Error('Новину не знайдено');
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
-
-const deleteAllMovies = asyncHandler(async (req, res) => {
+const deleteAllNews = asyncHandler(async (req, res) => {
   try {
-    
-    await Movie.deleteMany({});
-    res.json({ message: "Всі фільми вилучено" });
+    await News.deleteMany({});
+    res.json({ message: 'Всі новини вилучено' });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
-const createMovie = asyncHandler(async (req, res) => {
+const createNews = asyncHandler(async (req, res) => {
   try {
     const {
       name,
@@ -204,7 +189,7 @@ const createMovie = asyncHandler(async (req, res) => {
       casts,
     } = req.body;
 
-    const movie = new Movie({
+    const news_ = new News({
       name,
       desc,
       image,
@@ -220,12 +205,12 @@ const createMovie = asyncHandler(async (req, res) => {
       userId1: req.user._id,
     });
 
-    if (movie) {
-      const createdMovie = await movie.save();
-      res.status(201).json(createdMovie);
+    if (news_) {
+      const createdNews = await news_.save();
+      res.status(201).json(createdNews);
     } else {
       res.status(400);
-      throw new Error("Неправильні дані фільму");
+      throw new Error('Неправильні дані новини');
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -233,14 +218,13 @@ const createMovie = asyncHandler(async (req, res) => {
 });
 
 export {
-  importMovies,
   getNews,
-  getMovieById,
-  getTopRatedMovies,
-  getRandomMovies,
-  createMovieReview,
-  updateMovie,
-  deleteMovie,
-  deleteAllMovies,
-  createMovie,
+  getNewsById,
+  getTopRatedNews,
+  getRandomNews,
+  createNewsReview,
+  updateNews,
+  deleteNews,
+  deleteAllNews,
+  createNews,
 };

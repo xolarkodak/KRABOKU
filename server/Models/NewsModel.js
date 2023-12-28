@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const reviewSchema = mongoose.Schema(
   {
@@ -8,20 +8,20 @@ const reviewSchema = mongoose.Schema(
     comment: { type: String, required: true },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
       required: true,
     },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-const moviesSchema = mongoose.Schema(
+const newsSchema = mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
     },
     name: {
       type: String,
@@ -78,7 +78,7 @@ const moviesSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-export default mongoose.model("News", moviesSchema);
+export default mongoose.model('News', newsSchema);

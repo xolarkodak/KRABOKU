@@ -1,36 +1,26 @@
 import Axios from './Axios';
 
 export const getAllNewsService = async (
-  category1,
-  time1,
-  language1,
-  rate1,
-  year1,
-  search1,
-  pageNumber1,
+  category,
+  time,
+  language,
+  rate,
+  year,
+  search,
+  pageNumber,
 ) => {
   const { data } = await Axios.get(
-    `/news?category=${category1}&time=${time1}&language=${language1}&rate=${rate1}&year=${year1}&search=${search1}&pageNumber=${pageNumber1}`,
+    `/news?category=${category}&time=${time}&language=${language}&rate=${rate}&year=${year}&search=${search}&pageNumber=${pageNumber}`,
   );
   return data;
 };
 
-export const getRandomMoviesService = async () => {
-  const { data } = await Axios.get(`/news/random/all`);
-  return data;
-};
-
-export const getMovieByIdService = async (id) => {
+export const getNewsByIdService = async (id) => {
   const { data } = await Axios.get(`/news/${id}`);
   return data;
 };
 
-export const getTopRatedMovieService = async () => {
-  const { data } = await Axios.get(`/news/rated/top`);
-  return data;
-};
-
-export const reviewMovieService = async (token, id, review) => {
+export const reviewNewsService = async (token, id, review) => {
   const { data } = await Axios.post(`/news/${id}/reviews`, review, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -39,7 +29,7 @@ export const reviewMovieService = async (token, id, review) => {
   return data;
 };
 
-export const deleteMovieService = async (token, id) => {
+export const deleteNewsService = async (token, id) => {
   const { data } = await Axios.delete(`/news/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -48,7 +38,7 @@ export const deleteMovieService = async (token, id) => {
   return data;
 };
 
-export const deleteAllMoviesService = async (token) => {
+export const deleteAllNewsService = async (token) => {
   const { data } = await Axios.delete(`/news`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -57,8 +47,8 @@ export const deleteAllMoviesService = async (token) => {
   return data;
 };
 
-export const createMovieService = async (token, movie) => {
-  const { data } = await Axios.post(`/news`, movie, {
+export const createNewsService = async (token, news) => {
+  const { data } = await Axios.post(`/news`, news, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -66,8 +56,8 @@ export const createMovieService = async (token, movie) => {
   return data;
 };
 
-export const updateMovieService = async (token, id, movie) => {
-  const { data } = await Axios.put(`/news/${id}`, movie, {
+export const updateNewsService = async (token, id, news) => {
+  const { data } = await Axios.put(`/news/${id}`, news, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

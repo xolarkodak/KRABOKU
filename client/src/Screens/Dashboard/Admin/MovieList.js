@@ -33,7 +33,7 @@ function MoviesList() {
   };
 
   useEffect(() => {
-    dispatch(getAllMoviesAction({}));
+    // dispatch(getAllMoviesAction({}));
     if (isError || deleteError || allError) {
       toast.error(isError || deleteError || allError);
     }

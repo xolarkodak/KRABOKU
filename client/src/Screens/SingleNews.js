@@ -5,12 +5,9 @@ import NewsRates from '../Components/Single/NewsRates';
 import Layout from '../Layout/Layout';
 import ShareMovieModal from '../Components/Modals/ShareModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMovieByIdAction } from '../Redux/Actions/NewsActions';
 import Loader from '../Components/Notfications/Loader';
 import { RiMovie2Line } from 'react-icons/ri';
 import { SidebarContext } from '../Context/DrawerContext';
-import { DownloadVideo } from '../Context/Functionalities';
-import FileSaver from 'file-saver';
 
 function SingleNews() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -18,19 +15,10 @@ function SingleNews() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const sameClass = 'w-full gap-6 flex-colo min-h-screen';
-  const { isLoading, isError, movie } = useSelector((state) => state.getMovieById);
-  const { movies } = useSelector((state) => state.getAllMovies);
-  const RelatedMovies = movies?.filter((m) => m.category === movie?.category);
-
-  const DownloadMovieVideo = async (videoUrl, name) => {
-    await DownloadVideo(videoUrl, setprogress).then((data) => {
-      setprogress(0);
-      FileSaver.saveAs(data, name);
-    });
-  };
+  const { isLoading, isError, news_ } = useSelector((state) => state.getNewsById);
 
   useEffect(() => {
-    dispatch(getMovieByIdAction(id));
+    dispatch(getNewsByIdAction(id));
   }, [dispatch, id]);
 
   return (
@@ -48,15 +36,10 @@ function SingleNews() {
         </div>
       ) : (
         <>
-          <ShareMovieModal modalOpen={modalOpen} setModalOpen={setModalOpen} movie={movie} />
-          <NewsInfo
-            movie={movie}
-            setModalOpen={setModalOpen}
-            DownloadVideo={DownloadMovieVideo}
-            progress={progress}
-          />
+          <ShareMovieModal modalOpen={modalOpen} setModalOpen={setModalOpen} news_={news_} />
+          <NewsInfo news_={news_} setModalOpen={setModalOpen} progress={progress} />
           <div className="container mx-auto min-h-screen px-2 my-6">
-          <NewsRates movie={movie} />
+            <NewsRates news_={news_} />
           </div>
         </>
       )}

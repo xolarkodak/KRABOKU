@@ -39,17 +39,12 @@ const rootReducer = combineReducers({
   updateMovie: movies.updateMovieReducer,
 
   getAllNews: news.newsListReducer,
-  createNews: news.createNewsReducer
-  // getRandomMovies: movies.moviesRandomReducer,
-  // getMovieById: movies.movieDetailsReducer,
-  // getTopRatedMovie: movies.movieTopRatedReducer,
-  // createReview: movies.createReviewReducer,
-  // deleteMovie: movies.deleteMovieReducer,
-  // deleteAllMovies: movies.deleteAllMoviesReducer,
-  // createMovie: movies.createMovieReducer,
-  // casts: movies.CastsReducer,
-  // updateMovie: movies.updateMovieReducer,
-
+  createNews: news.createNewsReducer,
+  getNewsById: news.newsDetailsReducer,
+  deleteNews: news.deleteNewsReducer,
+  deleteAllNews: news.deleteAllNewsReducer,
+  updateNews: news.updateNewsReducer,
+  createReviewNews: news.createReviewNewsReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

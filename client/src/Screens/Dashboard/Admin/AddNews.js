@@ -4,30 +4,27 @@ import { Input, Message, Select } from '../../../Components/UsedInputs';
 import SideBar from '../SideBar';
 
 import { ImUpload } from 'react-icons/im';
-import CastsModal from '../../../Components/Modals/CastsModal';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { newsValidation } from '../../../Components/Validation/NewsValidation';
-import { createMovieAction, getAllNewsAction } from '../../../Redux/Actions/NewsActions';
+import { createNewsAction, getAllNewsAction } from '../../../Redux/Actions/NewsActions';
 import toast from 'react-hot-toast';
 import { InlineError } from '../../../Components/Notfications/Error';
 import { Imagepreview } from '../../../Components/Imagepreview';
-import { getAllTagsAction } from "../../../Redux/Actions/TagsActions";
 
-function AddMovie() {
+function AddNews() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [cast, setCast] = useState(null);
+
   const [imageWithoutTitle, setImageWithoutTitle] = useState('');
   const [imageTitle, setImageTitle] = useState('');
-  const [videoUrl, setVideoUrl] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { tags } = useSelector((state) => state.tagsGetAll);
   const { isLoading, isError, isSuccess } = useSelector((state) => state.createNews);
-  const { casts } = useSelector((state) => state.casts);
 
   const {
     register,
@@ -40,7 +37,7 @@ function AddMovie() {
 
   const onSubmit = (data) => {
     dispatch(
-      createMovieAction({
+      createNewsAction({
         ...data,
         image: imageWithoutTitle ? imageWithoutTitle : '/images/user.jpg',
         titleImage: imageTitle ? imageTitle : '/images/user.jpg',
@@ -48,13 +45,7 @@ function AddMovie() {
     );
   };
 
-
-
   useEffect(() => {
-    dispatch(getAllTagsAction());
-    if (modalOpen === false) {
-      setCast();
-    }
     if (isSuccess) {
       reset({
         name: '',
@@ -67,20 +58,19 @@ function AddMovie() {
       dispatch(getAllNewsAction({}));
       setImageTitle('');
       setImageWithoutTitle('');
-      setVideoUrl('');
-      dispatch({ type: 'CREATE_MOVIE_RESET' });
+
+      dispatch({ type: 'CREATE_NEWS_RESET' });
       navigate('/addnews');
     }
 
     if (isError) {
       toast.error('Щось пішло не так.');
-      dispatch({ type: 'CREATE_MOVIE_RESET' });
+      dispatch({ type: 'CREATE_NEWS_RESET' });
     }
   }, [modalOpen, isSuccess, isError, dispatch, reset, navigate]);
 
   return (
     <SideBar>
-      <CastsModal modalOpen={modalOpen} setModalOpen={setModalOpen} cast={cast} />
       <div className="flex flex-col gap-6">
         <h2 className="text-xl font-bold">Створити новину</h2>
         <div className="w-full grid md:grid-cols-2 gap-6">
@@ -165,8 +155,6 @@ function AddMovie() {
           {errors.tags && <InlineError text={errors.tags.message} />}
         </div>
 
-       
-        
         <button
           disabled={isLoading}
           onClick={handleSubmit(onSubmit)}
@@ -184,4 +172,4 @@ function AddMovie() {
   );
 }
 
-export default AddMovie;
+export default AddNews;

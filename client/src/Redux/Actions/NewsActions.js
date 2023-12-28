@@ -1,4 +1,4 @@
-import * as moviesConstants from '../Constants/NewsConstants';
+import * as newsConstants from '../Constants/NewsConstants';
 import * as newsAPIs from '../APIs/NewsServices';
 import toast from 'react-hot-toast';
 import { ErrorsAction, tokenProtection } from '../Protection';
@@ -15,7 +15,7 @@ export const getAllNewsAction =
   }) =>
   async (dispatch) => {
     try {
-      dispatch({ type: moviesConstants.MOVIES_LIST_REQUEST1 });
+      dispatch({ type: newsConstants.NEWS_LIST_REQUEST });
       const response = await newsAPIs.getAllNewsService(
         category,
         time,
@@ -25,150 +25,104 @@ export const getAllNewsAction =
         search,
         pageNumber,
       );
-   
+
       dispatch({
-        type: moviesConstants.MOVIES_LIST_SUCCESS1,
+        type: newsConstants.NEWS_LIST_SUCCESS,
         payload: response,
       });
     } catch (error) {
-      ErrorsAction(error, dispatch, moviesConstants.MOVIES_LIST_FAIL1);
+      ErrorsAction(error, dispatch, newsConstants.NEWS_LIST_FAIL);
     }
   };
 
-export const getRandomMoviesAction = () => async (dispatch) => {
+export const getNewsByIdAction = (id) => async (dispatch) => {
   try {
-    dispatch({ type: moviesConstants.MOVIES_RANDOM_REQUEST });
-    const response = await newsAPIs.getRandomMoviesService();
+    dispatch({ type: newsConstants.NEWS_DETAILS_REQUEST });
+    const response = await newsAPIs.getNewsByIdService(id);
     dispatch({
-      type: moviesConstants.MOVIES_RANDOM_SUCCESS,
+      type: newsConstants.NEWS_DETAILS_SUCCESS,
       payload: response,
     });
   } catch (error) {
-    ErrorsAction(error, dispatch, moviesConstants.MOVIES_RANDOM_FAIL);
+    ErrorsAction(error, dispatch, newsConstants.NEWS_DETAILS_FAIL);
   }
 };
 
-export const getMovieByIdAction = (id) => async (dispatch) => {
-  try {
-    dispatch({ type: moviesConstants.MOVIE_DETAILS_REQUEST });
-    const response = await newsAPIs.getMovieByIdService(id);
-    dispatch({
-      type: moviesConstants.MOVIE_DETAILS_SUCCESS,
-      payload: response,
-    });
-  } catch (error) {
-    ErrorsAction(error, dispatch, moviesConstants.MOVIE_DETAILS_FAIL);
-  }
-};
-
-export const getTopRatedMovieAction = () => async (dispatch) => {
-  try {
-    dispatch({ type: moviesConstants.MOVIE_TOP_RATED_REQUEST });
-    const response = await newsAPIs.getTopRatedMovieService();
-    dispatch({
-      type: moviesConstants.MOVIE_TOP_RATED_SUCCESS,
-      payload: response,
-    });
-  } catch (error) {
-    ErrorsAction(error, dispatch, moviesConstants.MOVIE_TOP_RATED_FAIL);
-  }
-};
-
-export const reviewMovieAction =
+export const reviewNewsAction =
   ({ id, review }) =>
   async (dispatch, getState) => {
     try {
-      dispatch({ type: moviesConstants.CREATE_REVIEW_REQUEST });
-      const response = await newsAPIs.reviewMovieService(tokenProtection(getState), id, review);
+      dispatch({ type: newsConstants.CREATE_REVIEW_NEWS_REQUEST });
+      const response = await newsAPIs.reviewNewsService(tokenProtection(getState), id, review);
       dispatch({
-        type: moviesConstants.CREATE_REVIEW_SUCCESS,
+        type: newsConstants.CREATE_REVIEW_NEWS_SUCCESS,
         payload: response,
       });
       toast.success('Відгук успішно доданий');
-      dispatch({ type: moviesConstants.CREATE_REVIEW_RESET });
-      dispatch(getMovieByIdAction(id));
+      dispatch({ type: newsConstants.CREATE_REVIEW_NEWS_RESET });
+      dispatch(getNewsByIdAction(id));
     } catch (error) {
-      ErrorsAction(error, dispatch, moviesConstants.CREATE_REVIEW_FAIL);
+      ErrorsAction(error, dispatch, newsConstants.CREATE_REVIEW_NEWS_FAIL);
     }
   };
 
-export const deleteMovieAction = (id) => async (dispatch, getState) => {
+export const deleteNewsAction = (id) => async (dispatch, getState) => {
   try {
-    dispatch({ type: moviesConstants.DELETE_MOVIE_REQUEST });
-    const response = await newsAPIs.deleteMovieService(tokenProtection(getState), id);
+    dispatch({ type: newsConstants.DELETE_NEWS_REQUEST });
+    const response = await newsAPIs.deleteNewsService(tokenProtection(getState), id);
     dispatch({
-      type: moviesConstants.DELETE_MOVIE_SUCCESS,
+      type: newsConstants.DELETE_NEWS_SUCCESS,
       payload: response,
     });
     toast.success('Новину успішно видалено');
     dispatch(getAllNewsAction({}));
   } catch (error) {
-    ErrorsAction(error, dispatch, moviesConstants.DELETE_MOVIE_FAIL);
+    ErrorsAction(error, dispatch, newsConstants.DELETE_NEWS_FAIL);
   }
 };
 
-export const deleteAllMoviesAction = () => async (dispatch, getState) => {
+export const deleteAllNewsAction = () => async (dispatch, getState) => {
   try {
-    dispatch({ type: moviesConstants.DELETE_ALL_MOVIES_REQUEST });
-    const response = await newsAPIs.deleteAllMoviesService(tokenProtection(getState));
+    dispatch({ type: newsConstants.DELETE_ALL_NEWS_REQUEST });
+    const response = await newsAPIs.deleteAllNewsService(tokenProtection(getState));
     dispatch({
-      type: moviesConstants.DELETE_ALL_MOVIES_SUCCESS,
+      type: newsConstants.DELETE_ALL_NEWS_SUCCESS,
       payload: response,
     });
     toast.success('Усі новини успішно видалено');
     dispatch(getAllNewsAction({}));
   } catch (error) {
-    ErrorsAction(error, dispatch, moviesConstants.DELETE_ALL_MOVIES_FAIL);
+    ErrorsAction(error, dispatch, newsConstants.DELETE_ALL_NEWS_FAIL);
   }
 };
 
-export const createMovieAction = (movie) => async (dispatch, getState) => {
+export const createNewsAction = (news) => async (dispatch, getState) => {
   try {
-    dispatch({ type: moviesConstants.CREATE_MOVIE_REQUEST });
-    const response = await newsAPIs.createMovieService(tokenProtection(getState), movie);
+    dispatch({ type: newsConstants.CREATE_NEWS_REQUEST });
+    const response = await newsAPIs.createNewsService(tokenProtection(getState), news);
     dispatch({
-      type: moviesConstants.CREATE_MOVIE_SUCCESS,
+      type: newsConstants.CREATE_NEWS_SUCCESS,
       payload: response,
     });
     toast.success('Новину успішно створено');
-    dispatch(deleteAllCastAction());
+    dispatch(getAllNewsAction({}));
   } catch (error) {
-    ErrorsAction(error, dispatch, moviesConstants.CREATE_MOVIE_FAIL);
+    ErrorsAction(error, dispatch, newsConstants.CREATE_NEWS_FAIL);
   }
 };
 
-export const addCastAction = (cast) => async (dispatch, getState) => {
-  dispatch({ type: moviesConstants.ADD_CAST, payload: cast });
-  localStorage.setItem('casts', JSON.stringify(getState().casts.casts));
-};
-
-export const removeCastAction = (id) => async (dispatch, getState) => {
-  dispatch({ type: moviesConstants.DELETE_CAST, payload: id });
-  localStorage.setItem('casts', JSON.stringify(getState().casts.casts));
-};
-
-export const updateCastAction = (cast) => async (dispatch, getState) => {
-  dispatch({ type: moviesConstants.EDIT_CAST, payload: cast });
-  localStorage.setItem('casts', JSON.stringify(getState().casts.casts));
-};
-
-export const deleteAllCastAction = () => async (dispatch) => {
-  dispatch({ type: moviesConstants.RESET_CAST });
-  localStorage.removeItem('casts');
-};
-
-export const updateMovieAction = (id, movie) => async (dispatch, getState) => {
+export const updateNewsAction = (id, news) => async (dispatch, getState) => {
   try {
-    dispatch({ type: moviesConstants.UPDATE_MOVIE_REQUEST });
-    const response = await newsAPIs.updateMovieService(tokenProtection(getState), id, movie);
+    dispatch({ type: newsConstants.UPDATE_NEWS_REQUEST });
+    const response = await newsAPIs.updateNewsService(tokenProtection(getState), id, news);
     dispatch({
-      type: moviesConstants.UPDATE_MOVIE_SUCCESS,
+      type: newsConstants.UPDATE_NEWS_SUCCESS,
       payload: response,
     });
     toast.success('Новину успішно оновлено');
-    dispatch(getMovieByIdAction(id));
-    dispatch(deleteAllCastAction());
+    dispatch(getNewsByIdAction(id));
+    dispatch(getAllNewsAction({}));
   } catch (error) {
-    ErrorsAction(error, dispatch, moviesConstants.UPDATE_MOVIE_FAIL);
+    ErrorsAction(error, dispatch, newsConstants.UPDATE_NEWS_FAIL);
   }
 };

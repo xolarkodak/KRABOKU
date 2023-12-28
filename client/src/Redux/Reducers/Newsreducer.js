@@ -1,100 +1,74 @@
-import * as moviesConstants from '../Constants/NewsConstants';
+import * as newsConstants from '../Constants/NewsConstants';
 
-export const newsListReducer = (state = { movies: [] }, action) => {
+export const newsListReducer = (state = { news: [] }, action) => {
   switch (action.type) {
-    case moviesConstants.MOVIES_LIST_REQUEST1:
+    case newsConstants.NEWS_LIST_REQUEST:
       return { isLoading: true };
-    case moviesConstants.MOVIES_LIST_SUCCESS1:
+    case newsConstants.NEWS_LIST_SUCCESS:
       return {
         isLoading: false,
-        movies: action.payload.movies,
+        news: action.payload.news,
         pages: action.payload.pages,
         page: action.payload.page,
-        totalMovies: action.payload.totalMovies,
+        totalNews: action.payload.totalNews,
       };
-    case moviesConstants.MOVIES_LIST_FAIL1:
+    case newsConstants.NEWS_LIST_FAIL:
       return { isLoading: false, isError: action.payload };
     default:
       return state;
   }
 };
 
-export const moviesRandomReducer = (state = { movies: [] }, action) => {
+export const newsDetailsReducer = (state = { news_: {} }, action) => {
   switch (action.type) {
-    case moviesConstants.MOVIES_RANDOM_REQUEST:
+    case newsConstants.NEWS_DETAILS_REQUEST:
       return { isLoading: true };
-    case moviesConstants.MOVIES_RANDOM_SUCCESS:
-      return { isLoading: false, movies: action.payload };
-    case moviesConstants.MOVIES_RANDOM_FAIL:
+    case newsConstants.NEWS_DETAILS_SUCCESS:
+      return { isLoading: false, news_: action.payload };
+    case newsConstants.NEWS_DETAILS_FAIL:
       return { isLoading: false, isError: action.payload };
+    case newsConstants.NEWS_DETAILS_RESET:
+      return { news_: {} };
     default:
       return state;
   }
 };
 
-export const movieDetailsReducer = (state = { movie: {} }, action) => {
+export const createReviewNewsReducer = (state = {}, action) => {
   switch (action.type) {
-    case moviesConstants.MOVIE_DETAILS_REQUEST:
+    case newsConstants.CREATE_REVIEW_NEWS_REQUEST:
       return { isLoading: true };
-    case moviesConstants.MOVIE_DETAILS_SUCCESS:
-      return { isLoading: false, movie: action.payload };
-    case moviesConstants.MOVIE_DETAILS_FAIL:
-      return { isLoading: false, isError: action.payload };
-    case moviesConstants.MOVIE_DETAILS_RESET:
-      return { movie: {} };
-    default:
-      return state;
-  }
-};
-
-export const movieTopRatedReducer = (state = { movies: [] }, action) => {
-  switch (action.type) {
-    case moviesConstants.MOVIE_TOP_RATED_REQUEST:
-      return { isLoading: true };
-    case moviesConstants.MOVIE_TOP_RATED_SUCCESS:
-      return { isLoading: false, movies: action.payload };
-    case moviesConstants.MOVIE_TOP_RATED_FAIL:
-      return { isLoading: false, isError: action.payload };
-    default:
-      return state;
-  }
-};
-
-export const createReviewReducer = (state = {}, action) => {
-  switch (action.type) {
-    case moviesConstants.CREATE_REVIEW_REQUEST:
-      return { isLoading: true };
-    case moviesConstants.CREATE_REVIEW_SUCCESS:
+    case newsConstants.CREATE_REVIEW_NEWS_SUCCESS:
       return { isLoading: false, isSuccess: true };
-    case moviesConstants.CREATE_REVIEW_FAIL:
+    case newsConstants.CREATE_REVIEW_NEWS_FAIL:
       return { isLoading: false, isError: action.payload };
-    case moviesConstants.CREATE_REVIEW_RESET:
+    case newsConstants.CREATE_REVIEW_NEWS_RESET:
       return {};
     default:
       return state;
   }
 };
 
-export const deleteMovieReducer = (state = {}, action) => {
+export const deleteNewsReducer = (state = {}, action) => {
   switch (action.type) {
-    case moviesConstants.DELETE_MOVIE_REQUEST:
+    case newsConstants.DELETE_NEWS_REQUEST:
       return { isLoading: true };
-    case moviesConstants.DELETE_MOVIE_SUCCESS:
+    case newsConstants.DELETE_NEWS_SUCCESS:
       return { isLoading: false, isSuccess: true };
-    case moviesConstants.DELETE_MOVIE_FAIL:
+    case newsConstants.DELETE_NEWS_FAIL:
       return { isLoading: false, isError: action.payload };
     default:
       return state;
   }
 };
 
-export const deleteAllMoviesReducer = (state = {}, action) => {
+export const deleteAllNewsReducer = (state = {}, action) => {
   switch (action.type) {
-    case moviesConstants.DELETE_ALL_MOVIES_REQUEST:
+    case newsConstants.DELETE_ALL_NEWS_REQUEST:
       return { isLoading: true };
-    case moviesConstants.DELETE_ALL_MOVIES_SUCCESS:
+    case newsConstants.DELETE_ALL_NEWS_SUCCESS:
       return { isLoading: false, isSuccess: true };
-    case moviesConstants.DELETE_ALL_MOVIES_FAIL:
+    case newsConstants.DELETE_ALL_NEWS_FAIL:
       return { isLoading: false, isError: action.payload };
     default:
       return state;
@@ -103,51 +77,28 @@ export const deleteAllMoviesReducer = (state = {}, action) => {
 
 export const createNewsReducer = (state = {}, action) => {
   switch (action.type) {
-    case moviesConstants.CREATE_MOVIE_REQUEST:
+    case newsConstants.CREATE_NEWS_REQUEST:
       return { isLoading: true };
-    case moviesConstants.CREATE_MOVIE_SUCCESS:
+    case newsConstants.CREATE_NEWS_SUCCESS:
       return { isLoading: false, isSuccess: true };
-    case moviesConstants.CREATE_MOVIE_FAIL:
+    case newsConstants.CREATE_NEWS_FAIL:
       return { isLoading: false, isError: action.payload };
-    case moviesConstants.CREATE_MOVIE_RESET:
+    case newsConstants.CREATE_NEWS_RESET:
       return {};
     default:
       return state;
   }
 };
 
-export const CastsReducer = (state = { casts: [] }, action) => {
+export const updateNewsReducer = (state = {}, action) => {
   switch (action.type) {
-    case moviesConstants.ADD_CAST:
-      return { casts: [...state.casts, action.payload] };
-    case moviesConstants.EDIT_CAST:
-      const updatedCasts = state.casts.map((cast) =>
-        cast.id === action.payload.id ? action.payload : cast,
-      );
-      return {
-        casts: updatedCasts,
-      };
-    case moviesConstants.DELETE_CAST:
-      return {
-        ...state,
-        casts: state.casts.filter((cast) => cast.id !== action.payload),
-      };
-    case moviesConstants.RESET_CAST:
-      return { casts: [] };
-    default:
-      return state;
-  }
-};
-
-export const updateMovieReducer = (state = {}, action) => {
-  switch (action.type) {
-    case moviesConstants.UPDATE_MOVIE_REQUEST:
+    case newsConstants.UPDATE_NEWS_REQUEST:
       return { isLoading: true };
-    case moviesConstants.UPDATE_MOVIE_SUCCESS:
+    case newsConstants.UPDATE_NEWS_SUCCESS:
       return { isLoading: false, isSuccess: true };
-    case moviesConstants.UPDATE_MOVIE_FAIL:
+    case newsConstants.UPDATE_NEWS_FAIL:
       return { isLoading: false, isError: action.payload };
-    case moviesConstants.UPDATE_MOVIE_RESET:
+    case newsConstants.UPDATE_NEWS_RESET:
       return {};
     default:
       return state;

@@ -6,30 +6,28 @@ import { Empty } from '../../../Components/Notfications/Empty';
 import Loader from '../../../Components/Notfications/Loader';
 import Table from '../../../Components/TableNews';
 import {
-  deleteAllMoviesAction,
-  deleteMovieAction,
+  deleteAllNewsAction,
+  deleteNewsAction,
   getAllNewsAction,
 } from '../../../Redux/Actions/NewsActions';
 import SideBar from '../SideBar';
 
-function MoviesList() {
+function NewsList() {
   const dispatch = useDispatch();
   const sameClass = 'text-white p-2 rounded font-semibold border-2 border-subMain hover:bg-subMain';
-  const { isLoading, isError, movies, pages, page } = useSelector((state) => state.getAllNews);
+  const { isLoading, isError, news, pages, page } = useSelector((state) => state.getAllNews);
   const { isLoading: deleteLoading, isError: deleteError } = useSelector(
-    (state) => state.deleteMovie,
+    (state) => state.deleteNews,
   );
-  const { isLoading: allLoading, isError: allError } = useSelector(
-    (state) => state.deleteAllMovies,
-  );
+  const { isLoading: allLoading, isError: allError } = useSelector((state) => state.deleteAllNews);
 
-  const deleteMovieHandler = (id) => {
-    window.confirm('Ви дійсно хочете видалити цю новину?') && dispatch(deleteMovieAction(id));
+  const deleteNewsHandler = (id) => {
+    window.confirm('Ви дійсно хочете видалити цю новину?') && dispatch(deleteNewsAction(id));
   };
 
-  const deleteAllMoviesHandler = () => {
+  const deleteAllNewsHandler = () => {
     window.confirm('Ви впевнені, що хочете видалити всі новини?') &&
-      dispatch(deleteAllMoviesAction());
+      dispatch(deleteAllNewsAction());
   };
 
   useEffect(() => {
@@ -59,10 +57,10 @@ function MoviesList() {
       <div className="flex flex-col gap-6">
         <div className="flex-btn gap-2">
           <h2 className="text-xl font-bold">Список новин</h2>
-          {movies?.length > 0 && (
+          {news?.length > 0 && (
             <button
               disabled={allLoading}
-              onClick={deleteAllMoviesHandler}
+              onClick={deleteAllNewsHandler}
               className="bg-main font-medium transitions hover:bg-subMain border border-subMain text-white py-3 px-6 rounded">
               {allLoading ? 'Видалення...' : 'Видалити все'}
             </button>
@@ -70,9 +68,9 @@ function MoviesList() {
         </div>
         {isLoading || deleteLoading ? (
           <Loader />
-        ) : movies?.length > 0 ? (
+        ) : news?.length > 0 ? (
           <>
-            <Table data={movies} admin={true} onDeleteHandler={deleteMovieHandler} />
+            <Table data={news} admin={true} onDeleteHandler={deleteNewsHandler} />
             <div className="w-full flex-rows gap-6 my-5">
               <button onClick={prevPage} disabled={page === 1} className={sameClass}>
                 <TbPlayerTrackPrev className="text-xl" />
@@ -90,4 +88,4 @@ function MoviesList() {
   );
 }
 
-export default MoviesList;
+export default NewsList;
