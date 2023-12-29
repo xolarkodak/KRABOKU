@@ -15,6 +15,7 @@ import { createMovieAction, removeCastAction } from '../../../Redux/Actions/Movi
 import toast from 'react-hot-toast';
 import { InlineError } from '../../../Components/Notfications/Error';
 import { Imagepreview } from '../../../Components/Imagepreview';
+import { getAllCategoriesAction } from "../../../Redux/Actions/CategoriesActions";
 
 function AddMovie() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -56,6 +57,7 @@ function AddMovie() {
   };
 
   useEffect(() => {
+    dispatch(getAllCategoriesAction());
     if (modalOpen === false) {
       setCast();
     }

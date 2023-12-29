@@ -2,60 +2,59 @@ import React, { useEffect, useState } from "react";
 import { HiPlusCircle } from "react-icons/hi";
 import Table2 from "../../../Components/Table2";
 import SideBar from "../SideBar";
-import CategoryModal from "../../../Components/Modals/CategoryModal";
+import TagsModal from "../../../Components/Modals/TagsModal";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCategoryAction, getAllCategoriesAction } from "../../../Redux/Actions/CategoriesActions";
+import { deleteTagAction } from "../../../Redux/Actions/TagsActions";
 import Loader from "../../../Components/Notfications/Loader";
 import { Empty } from "../../../Components/Notfications/Empty";
 import toast from "react-hot-toast";
 
-function Categories() {
+function Tags() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [category, setCategory] = useState();
+  const [tag, setTag] = useState();
   const dispatch = useDispatch();
 
-  const { categories, isLoading } = useSelector(
-    (state) => state.categoryGetAll
+  const { tags, isLoading } = useSelector(
+    (state) => state.tagsGetAll
   );
   
-  const { isSuccess, isError } = useSelector((state) => state.categoryDelete);
-  const adminDeletecategory = (id) => {
-    if (window.confirm("Ви впевнені, що хочете видалити цю категорію")) {
-      dispatch(deleteCategoryAction(id));
+  const { isSuccess, isError } = useSelector((state) => state.tagsDelete);
+  const adminDeletetag = (id) => {
+    if (window.confirm("Ви впевнені, що хочете видалити цей тег?")) {
+      dispatch(deleteTagAction(id));
     }
   };
 
   const OnEditFunction = (id) => {
-    setCategory(id);
+    setTag(id);
     setModalOpen(!modalOpen);
   };
 
   useEffect(() => {
-    dispatch(getAllCategoriesAction());
-
+      
     if (isError) {
       toast.error(isError);
-      dispatch({ type: "DELETE_CATEGORY_RESET" });
+      dispatch({ type: "DELETE_TAG_RESET" });
     }
     if (isSuccess) {
-      dispatch({ type: "DELETE_CATEGORY_RESET" });
+      dispatch({ type: "DELETE_TAG_RESET" });
     }
 
     if (modalOpen === false) {
-      setCategory();
+      setTag();
     }
   }, [modalOpen, dispatch, isError, isSuccess]);
 
   return (
     <SideBar>
-      <CategoryModal
+      <TagsModal
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}
-        category={category}
+        tag={tag}
       />
       <div className="flex flex-col gap-6">
         <div className="flex-btn gap-2">
-          <h2 className="text-xl font-bold">Категорії</h2>
+          <h2 className="text-xl font-bold">Теги</h2>
           <button
             onClick={() => setModalOpen(true)}
             className="bg-subMain flex-rows gap-4 font-medium transitions hover:bg-main border border-subMain text-white py-2 px-4 rounded"
@@ -66,19 +65,19 @@ function Categories() {
 
         {isLoading ? (
           <Loader />
-        ) : categories?.length > 0 ? (
+        ) : tags?.length > 0 ? (
           <Table2
-            data={categories}
+            data={tags}
             users={false}
             OnEditFunction={OnEditFunction}
-            onDeleteFunction={adminDeletecategory}
+            onDeleteFunction={adminDeletetag}
           />
         ) : (
-          <Empty message="У вас немає категорій" />
+          <Empty message="У вас немає тегів" />
         )}
       </div>
     </SideBar>
   );
 }
 
-export default Categories;
+export default Tags;

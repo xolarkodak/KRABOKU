@@ -21,6 +21,7 @@ import { InlineError } from "../../../Components/Notfications/Error";
 import { Imagepreview } from "../../../Components/Imagepreview";
 import Loader from "../../../Components/Notfications/Loader";
 import { RiMovie2Line } from "react-icons/ri";
+import { getAllCategoriesAction } from "../../../Redux/Actions/CategoriesActions";
 
 function EditMovie() {
   const sameClass = "w-full gap-6 flex-colo min-h-screen";
@@ -75,6 +76,7 @@ function EditMovie() {
   };
 
   useEffect(() => {
+    dispatch(getAllCategoriesAction());
     if (movie?._id !== id) {
       dispatch(getMovieByIdAction(id));
     } else {

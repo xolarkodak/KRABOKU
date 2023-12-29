@@ -1,12 +1,12 @@
-import Axios from './Axios';
+import Axios from "./Axios";
 
 const getTagsService = async () => {
-  const { data } = await Axios.get('/tags');
+  const { data } = await Axios.get("/tags");
   return data;
 };
 
 const createTagService = async (title, token) => {
-  const { data } = await Axios.post('/tags', title, {
+  const { data } = await Axios.post("/tags", title, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -32,4 +32,9 @@ const updateTagService = async (id, title, token) => {
   return data;
 };
 
-export { getTagsService, createTagService, deleteTagService, updateTagService };
+export {
+  getTagsService,
+  createTagService,
+  deleteTagService,
+  updateTagService,
+};
