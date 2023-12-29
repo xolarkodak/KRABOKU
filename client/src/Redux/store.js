@@ -1,7 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import * as User from './Reducers/userReducers';
 import * as categories from './Reducers/CategoriesReducer';
+import * as tags from './Reducers/TagsReducer';
 import * as movies from './Reducers/Moviesreducer';
+import * as news from './Reducers/Newsreducer';
 
 const rootReducer = combineReducers({
   userLogin: User.userLoginReducer,
@@ -20,6 +22,11 @@ const rootReducer = combineReducers({
   categoryUpdate: categories.updateCategoryReducer,
   categoryDelete: categories.deleteCategoryReducer,
 
+  tagsGetAll: tags.getAllTagsReducer,
+  tagsCreate: tags.createTagReducer,
+  tagsUpdate: tags.updateTagReducer,
+  tagsDelete: tags.deleteTagReducer,
+
   getAllMovies: movies.moviesListReducer,
   getRandomMovies: movies.moviesRandomReducer,
   getMovieById: movies.movieDetailsReducer,
@@ -30,6 +37,14 @@ const rootReducer = combineReducers({
   createMovie: movies.createMovieReducer,
   casts: movies.CastsReducer,
   updateMovie: movies.updateMovieReducer,
+
+  getAllNews: news.newsListReducer,
+  createNews: news.createNewsReducer,
+  getNewsById: news.newsDetailsReducer,
+  deleteNews: news.deleteNewsReducer,
+  deleteAllNews: news.deleteAllNewsReducer,
+  updateNews: news.updateNewsReducer,
+  createReviewNews: news.createReviewNewsReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
