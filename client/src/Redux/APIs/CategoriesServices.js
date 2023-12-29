@@ -1,12 +1,12 @@
-import Axios from "./Axios";
+import Axios from './Axios';
 
 const getCategoriesService = async () => {
-  const { data } = await Axios.get("/categories");
+  const { data } = await Axios.get('/categories');
   return data;
 };
 
 const createCategoryService = async (title, token) => {
-  const { data } = await Axios.post("/categories", title, {
+  const { data } = await Axios.post('/categories', title, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
