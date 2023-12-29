@@ -1,7 +1,7 @@
 import Axios from './Axios';
 
 export const getAllNewsService = async (
-  category,
+  tag,
   time,
   language,
   rate,
@@ -10,7 +10,7 @@ export const getAllNewsService = async (
   pageNumber,
 ) => {
   const { data } = await Axios.get(
-    `/news?category=${category}&time=${time}&language=${language}&rate=${rate}&year=${year}&search=${search}&pageNumber=${pageNumber}`,
+    `/news?tag=${tag}&time=${time}&language=${language}&rate=${rate}&year=${year}&search=${search}&pageNumber=${pageNumber}`,
   );
   return data;
 };

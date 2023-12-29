@@ -34,7 +34,7 @@ import DrawerContext from "./Context/DrawerContext";
 import ToastContainer from "./Components/Notfications/ToastContainer";
 import { AdminProtectedRouter, ProtectedRouter } from "./ProtectedRouter";
 import { useDispatch, useSelector } from "react-redux";
-//import { getAllCategoriesAction } from "./Redux/Actions/CategoriesActions";
+import { getAllCategoriesAction } from "./Redux/Actions/CategoriesActions";
 import { getAllTagsAction } from "./Redux/Actions/TagsActions";
 import { getAllMoviesAction } from "./Redux/Actions/MoviesActions";
 import { getAllNewsAction } from './Redux/Actions/NewsActions';
@@ -51,6 +51,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getAllMoviesAction({}));
+    dispatch(getAllCategoriesAction({}));
     dispatch(getAllNewsAction({}));
     dispatch(getAllTagsAction());
     if (userInfo) {

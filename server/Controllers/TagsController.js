@@ -45,10 +45,10 @@ const updateTags = asyncHandler(async (req, res) => {
 
 const deleteTags = asyncHandler(async (req, res) => {
   try {
-    const category = await Tags.findById(req.params.id);
+    const tag = await Tags.findById(req.params.id);
 
-    if (category) {
-      await category.remove();
+    if (tag) {
+      await tag.remove();
       res.json({ message: "Тег видалено" });
     } else {
       res.status(404).json({ message: "Тег не знайдений" });

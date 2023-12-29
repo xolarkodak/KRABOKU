@@ -62,7 +62,7 @@ function EditNews() {
       setValue('time', news_?.time);
       setValue('language', news_?.language);
       setValue('year', news_?.year);
-      setValue('category', news_?.category);
+      setValue('tag', news_?.tag);
       setValue('desc', news_?.desc);
       setImageWithoutTitle(news_?.image);
       setImageTitle(news_?.titleImage);
@@ -168,10 +168,10 @@ function EditNews() {
             <Select
               label="Тег"
               options={tags?.length > 0 ? tags : []}
-              name="category"
-              register={{ ...register('category') }}
+              name="tag"
+              register={{ ...register('tag') }}
             />
-            {errors.category && <InlineError text={errors.category.message} />}
+            {errors.tag && <InlineError text={errors.tag.message} />}
           </div>
 
           <button

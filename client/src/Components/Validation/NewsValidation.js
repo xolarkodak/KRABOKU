@@ -16,7 +16,7 @@ const newsValidation = yup.object().shape({
   time: yup.number().required("Будь ласка, введіть тривалість читання новини"),
   language: yup.string().required("Будь ласка, введіть мову новини"),
   year: yup.number().required("Будь ласка, введіть дату виходу новини"),
-  category: yup.string().required("Будь ласка, оберіть тег новини"),
+  tag: yup.string().required("Будь ласка, оберіть тег новини"),
   desc: yup
     .string()
     .required("Будь ласка, введіть опис новини")

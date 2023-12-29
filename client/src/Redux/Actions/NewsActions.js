@@ -5,7 +5,7 @@ import { ErrorsAction, tokenProtection } from '../Protection';
 
 export const getAllNewsAction =
   ({
-    category = '',
+    tag = '',
     time = '',
     language = '',
     rate = '',
@@ -17,7 +17,7 @@ export const getAllNewsAction =
     try {
       dispatch({ type: newsConstants.NEWS_LIST_REQUEST });
       const response = await newsAPIs.getAllNewsService(
-        category,
+        tag,
         time,
         language,
         rate,

@@ -39,7 +39,7 @@ const newsSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    category: {
+    tag: {
       type: String,
       required: true,
     },
@@ -55,9 +55,6 @@ const newsSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
-    video: {
-      type: String,
-    },
     rate: {
       type: Number,
       required: true,
@@ -69,12 +66,6 @@ const newsSchema = mongoose.Schema(
       default: 0,
     },
     reviews: [reviewSchema],
-    casts: [
-      {
-        name: { type: String, required: true },
-        image: { type: String },
-      },
-    ],
   },
   {
     timestamps: true,

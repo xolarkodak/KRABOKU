@@ -3,9 +3,9 @@ import asyncHandler from 'express-async-handler';
 
 const getNews = asyncHandler(async (req, res) => {
   try {
-    const { category, time, language, rate, year, search } = req.query;
+    const { tag, time, language, rate, year, search } = req.query;
     let query = {
-      ...(category && { category }),
+      ...(tag && { tag }),
       ...(time && { time }),
       ...(language && { language }),
       ...(rate && { rate }),
@@ -113,7 +113,7 @@ const updateNews = asyncHandler(async (req, res) => {
       titleImage,
       rate,
       numberOfReviews,
-      category,
+      tag,
       time,
       language,
       year,
@@ -130,7 +130,7 @@ const updateNews = asyncHandler(async (req, res) => {
       news_.titleImage = titleImage || news_.titleImage;
       news_.rate = rate || news_.rate;
       news_.numberOfReviews = numberOfReviews || news_.numberOfReviews;
-      news_.category = category || news_.category;
+      news_.tag = tag || news_.tag;
       news_.time = time || news_.time;
       news_.language = language || news_.language;
       news_.year = year || news_.year;
@@ -181,7 +181,7 @@ const createNews = asyncHandler(async (req, res) => {
       titleImage,
       rate,
       numberOfReviews,
-      category,
+      tag,
       time,
       language,
       year,
@@ -196,7 +196,7 @@ const createNews = asyncHandler(async (req, res) => {
       titleImage,
       rate,
       numberOfReviews,
-      category,
+      tag,
       time,
       language,
       year,

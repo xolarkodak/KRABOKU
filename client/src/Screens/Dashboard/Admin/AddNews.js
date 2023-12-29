@@ -149,8 +149,8 @@ function AddNews() {
           <Select
             label="Тег"
             options={tags?.length > 0 ? tags : []}
-            name="category"
-            register={{ ...register('category') }}
+            name="tag"
+            register={{ ...register('tag') }}
           />
           {errors.tags && <InlineError text={errors.tags.message} />}
         </div>
