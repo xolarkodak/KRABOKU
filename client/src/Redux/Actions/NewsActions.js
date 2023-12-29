@@ -4,7 +4,15 @@ import toast from 'react-hot-toast';
 import { ErrorsAction, tokenProtection } from '../Protection';
 
 export const getAllNewsAction =
-  ({ tag = '', time = '', language = '', rate = '', year = '', search = '', pageNumber = '' }) =>
+  ({
+    tag = '',
+    time = '',
+    language = '',
+    rate = '',
+    year = '',
+    search = '',
+    pageNumber = '',
+  }) =>
   async (dispatch) => {
     try {
       dispatch({ type: newsConstants.NEWS_LIST_REQUEST });
